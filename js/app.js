@@ -1,9 +1,15 @@
 const tableBody = document.querySelector("#bpTable tbody");
 const startDateInput = document.getElementById("startDate");
 
-const TIMES = ["Morgens", "Mittag", "Abend"];
-const DAYS_IN_WEEK = 7;
+function getTimes() {
+    return [
+        t("morning"),
+        t("noon"),
+        t("evening")
+    ];
+}
 
+const DAYS_IN_WEEK = 7;
 const DEFAULT_LIMITS = {
     normal: 130,
     warning: 180
@@ -22,6 +28,23 @@ function saveLimits(newLimits) {
     localStorage.setItem("bp_limits", JSON.stringify(limits));
 }
 
+// Zentrale Datumsfunktion
+// Anzeigeformat: dd.mm.jjjj
+function formatDateDisplay(date) {
+  const d = String(date.getDate()).padStart(2, "0");
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const y = date.getFullYear();
+  return `${d}.${m}.${y}`;
+}
+
+// Storage / interne Keys: yyyy-mm-dd
+function formatDateISO(date) {
+  return date.toISOString().split("T")[0];
+}
+
+
+
+
 // Initialisierung
 init();
 
@@ -29,6 +52,15 @@ function init() {
     const today = new Date();
     startDateInput.valueAsDate = today;
     renderWeek(today);
+
+    document.getElementById("resetData").addEventListener("click", () => {
+        const ok = confirm(t("resetConfirm"));
+
+        if (!ok) return;
+
+        localStorage.clear();
+        location.reload();
+    });
 }
 
 // Tabelle für 7 Tage erzeugen
@@ -42,10 +74,11 @@ function renderWeek(startDate) {
         const currentDate = new Date(startDate);
         currentDate.setDate(startDate.getDate() + i);
 
-        const dateKey = formatISO(currentDate);
-        const dateDisplay = formatDE(currentDate);
+        const dateKey = formatDateISO(currentDate);
+        const dateDisplay = formatDateDisplay(currentDate);
 
-        TIMES.forEach((time, index) => {
+
+        getTimes().forEach((time, index) => {
             const row = document.createElement("tr");
             row.dataset.date = dateKey; // z.B. 2026-01-28 (ISO)
             row.dataset.time = time;    // Morgens | Mittag | Abend
@@ -100,15 +133,6 @@ function renderWeek(startDate) {
 
 }
 
-function formatDE(date) {
-    return date.toLocaleDateString("de-DE");
-}
-
-function formatISO(date) {
-    return date.toISOString().split("T")[0];
-}
-
-
 // Speichert komplette Woche
 function saveCellData(startDate) {
     const weekKey = getWeekKey(startDate);
@@ -140,13 +164,17 @@ function loadWeekData(weekKey) {
 
 // Wochen-Key (z. B. week_2026-01-28)
 function getWeekKey(date) {
-    return "week_" + formatDate(date);
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+
+    const monday = new Date(d);
+    const day = monday.getDay() || 7;
+    monday.setDate(monday.getDate() - day + 1);
+
+    return `week-${monday.toISOString().slice(0, 10)}`;
 }
 
-// Datum formatieren
-function formatDate(date) {
-    return date.toISOString().split("T")[0];
-}
+
 
 // Navigation
 document.getElementById("prevWeek").addEventListener("click", () => {
@@ -195,9 +223,8 @@ function validateBloodPressure(row) {
         // ⚠️ echte Warnung – nur einmal
         if (row.dataset.warned !== "true") {
             alert(
-                "⚠️ Kritischer Blutdruckwert!\n\n" +
-                "Systolisch > 180 mmHg.\n" +
-                "Bitte Ruhe bewahren und ggf. ärztliche Hilfe kontaktieren."
+            t("alertCriticalTitle") + "\n\n" +
+            t("alertCriticalText")
             );
             row.dataset.warned = "true";
         }
@@ -220,11 +247,12 @@ function updateWeekSummary(startDate) {
         else danger++;
     });
 
-    document.getElementById("weekSummary").innerHTML = `
-        <span>🟢 Normal: ${normal}</span>
-        <span>🟡 Erhöht: ${warning}</span>
-        <span>🔴 Kritisch: ${danger}</span>
-    `;
+        document.getElementById("weekSummary").innerHTML = `
+        <span>🟢 ${t("normal")}: ${normal}</span>
+        <span>🟡 ${t("warning")}: ${warning}</span>
+        <span>🔴 ${t("danger")}: ${danger}</span>
+        `;
+
 }
 
 /* speichern & anwenden */
@@ -239,7 +267,71 @@ document.getElementById("saveLimits").addEventListener("click", () => {
     renderWeek(new Date(startDateInput.value));
 });
 
-/* Verhalten umsetzen */
+/* Arzt-Zusammenfassung */
+function getDoctorSummary(startDate) {
+    const weekKey = getWeekKey(startDate);
+    const data = loadWeekData(weekKey);
+    const entries = Object.values(data);
+
+    if (!entries.length) {
+        return null;
+    }
+
+    const sysValues = [];
+    const diaValues = [];
+    const pulseValues = [];
+    let critical = 0;
+
+    entries.forEach(e => {
+        if (e.sys) sysValues.push(+e.sys);
+        if (e.dia) diaValues.push(+e.dia);
+        if (e.pulse) pulseValues.push(+e.pulse);
+
+        if (e.sys && +e.sys >= limitWarning) {
+            critical++;
+        }
+    });
+
+    const avg = arr =>
+        arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length) : "-";
+
+    const start = new Date(startDate);
+    const end = new Date(startDate);
+    end.setDate(start.getDate() + 6);
+
+    return {
+        period: `${formatDateDisplay(start)} – ${formatDateDisplay(end)}`,
+        count: entries.length,
+        avgSys: avg(sysValues),
+        avgDia: avg(diaValues),
+        avgPulse: avg(pulseValues),
+        critical
+    };
+}
+
+
+function updateTitle() {
+    const title = document.querySelector("h2");
+    title.innerText = doctorMode
+    ? t("titleDoctor")
+    : t("title");
+}
+
+function updateDoctorSummary() {
+    const summaryEl = document.getElementById("doctorSummary");
+
+    if (!doctorMode) {
+        summaryEl.innerText = "";
+        return;
+    }
+
+    const summary = getDoctorSummary(new Date(startDateInput.value));
+
+    summaryEl.innerText = summary
+        ? `${summary.period} | Ø ${summary.avgSys}/${summary.avgDia} | Puls Ø ${summary.avgPulse}`
+        : t("noValues");
+}
+
 document.getElementById("doctorMode").addEventListener("change", e => {
     doctorMode = e.target.checked;
 
@@ -248,25 +340,27 @@ document.getElementById("doctorMode").addEventListener("change", e => {
         doctorMode
     );
 
+    updateTitle();
     renderWeek(new Date(startDateInput.value));
+    updateDoctorSummary();
 });
 
-/* Arzt-Zusammenfassung */
-function getDoctorSummary(startDate) {
-    const data = loadWeekData(getWeekKey(startDate));
-    const values = Object.values(data).map(e => parseInt(e.sys, 10)).filter(Boolean);
 
-    if (!values.length) return "Keine Messwerte";
 
-    const avg = Math.round(values.reduce((a, b) => a + b) / values.length);
-    const max = Math.max(...values);
 
-    return `Ø ${avg} mmHg | Max ${max} mmHg`;
-}
 
-function updateTitle() {
-    const title = document.querySelector("h2");
-    title.innerText = doctorMode
-        ? "Blutdruck Wochenprotokoll – Arztansicht"
-        : "Blutdruck Wochenprotokoll";
-}
+/* Language / Sparache / Dil Secimi */
+const langSelect = document.getElementById("languageSelect");
+
+langSelect.addEventListener("change", e => {
+  setLanguage(e.target.value);
+
+  // 🔁 Tabelle neu aufbauen, damit getTimes() neu greift
+  renderWeek(new Date(startDateInput.value));
+});
+
+
+const savedLang = localStorage.getItem("language") || "de";
+langSelect.value = savedLang;
+setLanguage(savedLang);
+

@@ -70,6 +70,11 @@ button:hover {
     background: #333;
 }
 
+.dilsecim {
+    background: var(--bg-input);
+    color:var(--text-main)
+}
+
 /* =========================
    SETTINGS
 ========================= */
@@ -89,11 +94,6 @@ details summary {
 
 .doctor-setting {
     font-weight: 600;
-}
-
-/* Arztmodus: Konfig ausblenden */
-.doctor-print .doctor-settings {
-    display: none;
 }
 
 /* =========================
@@ -206,6 +206,12 @@ input:disabled {
     padding: 0;
 }
 
+/* Arztmodus: Sprache ausblenden */
+.doctor-print .language-settings {
+    display: none !important;
+}
+
+
 /* ===== Arztansicht: nur Schalter sichtbar lassen ===== */
 
 /* Einstellungen-Container sichtbar lassen */
@@ -222,4 +228,163 @@ input:disabled {
 /* Zusammenfassung ausblenden */
 .doctor-print .summary {
     display: none !important;
+}
+
+/* =========================
+   Doctor Summary Box
+========================= */
+
+.doctor-summary {
+    display: none;
+    margin-bottom: 14px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    line-height: 1.5;
+}
+
+.doctor-summary h3 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.doctor-summary .period {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.doctor-summary ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.doctor-summary li {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+/* Arztansicht / Druck */
+.doctor-print .doctor-summary {
+    display: block;
+    background: #fff;
+    color: #000;
+    border-color: #000;
+}
+
+/* =========================
+   Normalmodus – Einstellungen sichtbar
+========================= */
+.settings-row.doctor-settings {
+    display: flex;
+}
+
+/* =========================
+   Arztmodus – Einstellungen ausblenden
+========================= */
+.doctor-print .settings-row.doctor-settings {
+    display: none !important;
+}
+/* =========================
+   Reset Button
+========================= */
+.danger-btn {
+    background: #7a1c1c;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.danger-btn:hover {
+    background: #a32727;
+}
+
+/* Im Arztmodus ausblenden */
+.doctor-print #resetData {
+    display: none;
+}
+
+/* =========================
+   Tages-Trennung (3 Zeilen = 1 Tag)
+========================= */
+tbody tr:nth-child(3n) td {
+    border-bottom: 3px solid #656567;
+    padding-bottom: 12px;
+}
+
+/* =========================
+   Zentrierte Spalten
+========================= */
+
+/* Header */
+th:nth-child(1),
+th:nth-child(2),
+th:nth-child(3) {
+    text-align: center;
+}
+
+/* Zellen */
+td:nth-child(1),
+td:nth-child(2),
+td:nth-child(3) {
+    text-align: center;
+}
+
+/* Inputs & Selects in den Spalten ebenfalls zentrieren */
+td:nth-child(2) input,
+td:nth-child(3) select {
+    margin: 0 auto;
+    display: block;
+}
+
+/* =========================
+   Responsive Tabellenbreite
+========================= */
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Desktop – Standard */
+th:nth-child(1), td:nth-child(1) { width: 12%; } /* Datum */
+th:nth-child(2), td:nth-child(2) { width: 10%; } /* Zeit */
+th:nth-child(3), td:nth-child(3) { width: 14%; } /* Messzeitpunkt */
+th:nth-child(4), td:nth-child(4) { width: 18%; } /* Systolisch */
+th:nth-child(5), td:nth-child(5) { width: 18%; } /* Diastolisch */
+th:nth-child(6), td:nth-child(6) { width: 12%; } /* Puls */
+
+/* =========================
+   Tablet
+========================= */
+@media (max-width: 1024px) {
+    th:nth-child(1), td:nth-child(1) { width: 14%; }
+    th:nth-child(2), td:nth-child(2) { width: 12%; }
+    th:nth-child(3), td:nth-child(3) { width: 16%; }
+    th:nth-child(4), td:nth-child(4) { width: 20%; }
+    th:nth-child(5), td:nth-child(5) { width: 20%; }
+    th:nth-child(6), td:nth-child(6) { width: 18%; }
+}
+
+/* =========================
+   Mobile
+========================= */
+@media (max-width: 768px) {
+    th:nth-child(1), td:nth-child(1) { width: 18%; } /* Datum */
+    th:nth-child(2), td:nth-child(2) { width: 14%; } /* Zeit */
+    th:nth-child(3), td:nth-child(3) { width: 18%; } /* Messzeitpunkt */
+    th:nth-child(4), td:nth-child(4) { width: 25%; } /* Systolisch */
+    th:nth-child(5), td:nth-child(5) { width: 25%; } /* Diastolisch */
+    th:nth-child(6), td:nth-child(6) { width: 20%; } /* Puls */
+}
+
+table input,
+table select {
+    width: 100%;
+    box-sizing: border-box;
 }
