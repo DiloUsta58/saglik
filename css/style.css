@@ -1,26 +1,55 @@
-body {
-    font-family: "Georgia", "Times New Roman", serif;
-    background-color: #f7f7f7;
-    margin: 20px;
-    color: #222;
+/* =========================
+   GLOBAL DARK THEME
+========================= */
+
+:root {
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --bg-input: #2a2a2a;
+
+    --text-main: #eaeaea;
+    --text-muted: #a0a0a0;
+
+    --border: #3a3a3a;
+
+    --green: #3cb371;
+    --yellow: #f0c75e;
+    --red: #e25555;
 }
 
-h2 {
-    margin-bottom: 8px;
-    font-weight: normal;
+body {
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 20px;
 }
+
+/* =========================
+   HEADINGS
+========================= */
+
+h2 {
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* =========================
+   CARDS / SECTIONS
+========================= */
 
 .controls,
 .summary,
-details,
-label,
-table {
-    background: white;
+details {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
     padding: 10px;
     border-radius: 6px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    margin-bottom: 12px;
 }
+
+/* =========================
+   CONTROLS
+========================= */
 
 .controls {
     display: flex;
@@ -29,98 +58,24 @@ table {
 }
 
 button {
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 4px;
     padding: 4px 10px;
-    border: 1px solid #aaa;
-    background: #f0f0f0;
     cursor: pointer;
 }
 
 button:hover {
-    background: #e6e6e6;
+    background: #333;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-    background: white;
-}
-
-th {
-    background: #f2f2f2;
-    font-weight: normal;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 4px 6px;
-    font-size: 14px;
-}
-
-input[type="number"],
-input[type="date"] {
-    border-radius: 4px;
-    border: 1px solid #bbb;
-    background: #fafafa;
-}
-
-input:focus {
-    outline: none;
-    border-color: #888;
-    background: white;
-}
-
-.bp-normal {
-    background-color: #dff3e3;
-    color: #1f6b3a;
-}
-
-.bp-warning {
-    background-color: #fff4cc;
-    color: #6d5500;
-}
-
-.bp-danger {
-    background-color: #f8d7da;
-    color: #7a1c24;
-    animation: none;
-}
-
-input:disabled {
-    background-color: #eee;
-    color: #666;
-}
-
-.summary span {
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 14px;
-}
-
-.table-header {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 6px;
-}
-
-.doctor-toggle {
-    font-size: 14px;
-    background: #f2f2f2;
-    padding: 4px 10px;
-    border-radius: 16px;
-    border: 1px solid #ccc;
-}
-
-details {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-}
-
-details[open] {
-    padding-bottom: 10px;
-}
+/* =========================
+   SETTINGS
+========================= */
 
 details summary {
-    font-weight: bold;
+    font-weight: 600;
     cursor: pointer;
     margin-bottom: 8px;
 }
@@ -129,53 +84,142 @@ details summary {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 8px;
     flex-wrap: wrap;
 }
 
 .doctor-setting {
-    font-weight: bold;
+    font-weight: 600;
 }
 
-/* ===== Arztmodus Druckansicht ===== */
+/* Arztmodus: Konfig ausblenden */
+.doctor-print .doctor-settings {
+    display: none;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+}
+
+th {
+    background: #222;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 6px;
+    font-weight: 500;
+}
+
+td {
+    border: 1px solid var(--border);
+    padding: 4px 6px;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+/* =========================
+   INPUTS (ALLE TYPEN)
+========================= */
+
+input[type="number"],
+input[type="date"],
+input[type="time"] {
+    width: 100%;
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 6px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+input:disabled {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: transparent;
+}
+
+/* =========================
+   BLOOD PRESSURE STATES
+========================= */
+
+.bp-normal {
+    background: rgba(60, 179, 113, 0.25);
+    color: var(--green);
+}
+
+.bp-warning {
+    background: rgba(240, 199, 94, 0.25);
+    color: var(--yellow);
+}
+
+.bp-danger {
+    background: rgba(226, 85, 85, 0.25);
+    color: var(--red);
+}
+
+/* =========================
+   SUMMARY BADGES
+========================= */
+
+.summary span {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+/* =========================
+   DOCTOR MODE / PRINT
+========================= */
 
 .doctor-print body {
-    background: white;
+    background: white !important;
+    color: black !important;
 }
 
-/* Alles ausblenden, was nicht gedruckt werden soll */
+.doctor-print table,
+.doctor-print th,
+.doctor-print td {
+    background: white !important;
+    color: black !important;
+    border-color: black !important;
+}
+
 .doctor-print .controls,
 .doctor-print .table-header,
 .doctor-print button {
     display: none !important;
 }
 
-
-/* Karten-Optik entfernen */
-.doctor-print .summary,
-.doctor-print table {
-    box-shadow: none;
-    border-radius: 0;
-}
-
-/* Inputs wie Text aussehen lassen */
 .doctor-print input {
-    border: none;
-    background: transparent;
+    background: transparent !important;
+    border: none !important;
     padding: 0;
-    height: auto;
-    font-size: 14px;
 }
 
-/* Farben drucktauglich */
-.doctor-print .bp-normal,
-.doctor-print .bp-warning,
-.doctor-print .bp-danger {
-    background: transparent;
-    color: black;
+/* ===== Arztansicht: nur Schalter sichtbar lassen ===== */
+
+/* Einstellungen-Container sichtbar lassen */
+.doctor-print details {
+    background: rgb(255, 255, 255);
+    display: block !important;
 }
 
-/* Arztmodus: Konfiguration ausblenden */
+/* NUR Konfigurationsfelder ausblenden */
 .doctor-print .doctor-settings {
-    display: none;
+    display: none !important;
+}
+
+/* Zusammenfassung ausblenden */
+.doctor-print .summary {
+    display: none !important;
 }
