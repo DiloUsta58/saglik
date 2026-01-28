@@ -85,13 +85,6 @@ details summary {
     margin-bottom: 8px;
 }
 
-.settings-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
 .doctor-setting {
     font-weight: 600;
 }
@@ -135,6 +128,7 @@ input[type="time"] {
     border-radius: 4px;
     padding: 3px 6px;
     box-sizing: border-box;
+    text-align: center;
 }
 
 input:focus {
@@ -181,7 +175,8 @@ input:disabled {
    DOCTOR MODE / PRINT
 ========================= */
 
-.doctor-print body {
+html.doctor-print,
+body.doctor-print {
     background: white !important;
     color: black !important;
 }
@@ -207,10 +202,13 @@ input:disabled {
 }
 
 /* Arztmodus: Sprache ausblenden */
-.doctor-print .language-settings {
+.doctor-print .lang-row {
     display: none !important;
 }
 
+tbody tr:hover td {
+    background: rgba(255,255,255,0.04);
+}
 
 /* ===== Arztansicht: nur Schalter sichtbar lassen ===== */
 
@@ -288,26 +286,79 @@ input:disabled {
     display: none !important;
 }
 /* =========================
-   Reset Button
+   Reset-Button oben rechts fixiert
 ========================= */
+
+/* =========================
+   Reset-Button global fixiert
+========================= */
+
+.reset-row {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    z-index: 9999;
+}
+
+/* Button-Design */
 .danger-btn {
-    background: #7a1c1c;
+    background: #8b1e1e;
     color: #fff;
-    border: none;
     padding: 8px 14px;
-    border-radius: 6px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
 }
 
 .danger-btn:hover {
-    background: #a32727;
+    background: #b32626;
 }
 
-/* Im Arztmodus ausblenden */
-.doctor-print #resetData {
+/* Arztmodus: Button ausblenden */
+.doctor-print .reset-row {
     display: none;
 }
+
+
+
+@media (max-width: 600px) {
+    .reset-row {
+        top: 8px;
+        right: 8px;
+    }
+
+    .danger-btn {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}
+
+
+/* =========================
+   Sprachwahl mit PNG-Flaggen
+========================= */
+
+.lang-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lang-flag-img {
+    width: 28px;
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.6);
+}
+
+/* Arztmodus: Sprache ausblenden */
+.doctor-print .language-settings {
+    display: none;
+}
+
+
 
 /* =========================
    Tages-Trennung (3 Zeilen = 1 Tag)
