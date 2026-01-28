@@ -18,21 +18,30 @@
 <body>
 
 <h2 data-i18n="h2">Blutdruck Wochenprotokoll</h2>
-
-<p class="language-settings">
-  <span>Sprache / Dil:</span>
-  <select id="languageSelect" class="dilsecim"> 
-    <option value="de">DEUTSCH</option>
-    <option value="tr">TÜRKÇE</option>
-  </select>
-
   <div class="settings-row">
-    <button id="resetData" class="danger-btn" data-i18n="ResetAllData">
-        ! Alle Daten Löschen !
-    </button>
-</div>
+      <button id="resetData" class="danger-btn" data-i18n="ResetAllData">
+          ! Alle Daten Löschen !
+      </button>
+  </div>
 
+
+<p class="lang-row language-settings">
+  <img
+    id="langFlag"
+    src="flags/flagde.png"
+    alt="DE"
+    class="lang-flag-img"
+  >
+
+  <select id="languageSelect" class="dilsecim">
+    <option value="de">Deutsch</option>
+    <option value="tr">Türkçe</option>
+    <option value="en">English</option>
+    <option value="fr">Français</option>
+  </select>
 </p>
+
+
 
 <div class="controls">
     <button id="prevWeek" data-i18n="prev">← Zurück</button>

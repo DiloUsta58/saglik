@@ -353,14 +353,40 @@ document.getElementById("doctorMode").addEventListener("change", e => {
 const langSelect = document.getElementById("languageSelect");
 
 langSelect.addEventListener("change", e => {
-  setLanguage(e.target.value);
-
-  // 🔁 Tabelle neu aufbauen, damit getTimes() neu greift
-  renderWeek(new Date(startDateInput.value));
+    const lang = e.target.value;
+    setLanguage(lang);
+    updateLanguageFlag(lang);
+    // 🔁 Tabelle neu aufbauen, damit getTimes() neu greift
+    renderWeek(new Date(startDateInput.value));
 });
 
 
-const savedLang = localStorage.getItem("language") || "de";
+// 🌍 Sprache beim ersten Start automatisch erkennen
+let savedLang = localStorage.getItem("language");
+
+if (!savedLang) {
+    savedLang = detectBrowserLanguage();
+    localStorage.setItem("language", savedLang);
+}
+
 langSelect.value = savedLang;
 setLanguage(savedLang);
+updateLanguageFlag(savedLang);
+// 🔁 Tabelle neu rendern (wichtig für getTimes!)
+renderWeek(new Date(startDateInput.value));
+
+function updateLanguageFlag(lang) {
+    const flags = {
+        de: "flags/flagde.png",
+        tr: "flags/flagtr.png",
+        en: "flags/flagen.png",
+        fr: "flags/flagfr.png"
+    };
+
+    const flagImg = document.getElementById("langFlag");
+    if (flagImg && flags[lang]) {
+        flagImg.src = flags[lang];
+        flagImg.alt = lang.toUpperCase();
+    }
+}
 
