@@ -1,0 +1,181 @@
+body {
+    font-family: "Georgia", "Times New Roman", serif;
+    background-color: #f7f7f7;
+    margin: 20px;
+    color: #222;
+}
+
+h2 {
+    margin-bottom: 8px;
+    font-weight: normal;
+}
+
+.controls,
+.summary,
+details,
+label,
+table {
+    background: white;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    padding: 4px 10px;
+    border: 1px solid #aaa;
+    background: #f0f0f0;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #e6e6e6;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+}
+
+th {
+    background: #f2f2f2;
+    font-weight: normal;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    font-size: 14px;
+}
+
+input[type="number"],
+input[type="date"] {
+    border-radius: 4px;
+    border: 1px solid #bbb;
+    background: #fafafa;
+}
+
+input:focus {
+    outline: none;
+    border-color: #888;
+    background: white;
+}
+
+.bp-normal {
+    background-color: #dff3e3;
+    color: #1f6b3a;
+}
+
+.bp-warning {
+    background-color: #fff4cc;
+    color: #6d5500;
+}
+
+.bp-danger {
+    background-color: #f8d7da;
+    color: #7a1c24;
+    animation: none;
+}
+
+input:disabled {
+    background-color: #eee;
+    color: #666;
+}
+
+.summary span {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 6px;
+}
+
+.doctor-toggle {
+    font-size: 14px;
+    background: #f2f2f2;
+    padding: 4px 10px;
+    border-radius: 16px;
+    border: 1px solid #ccc;
+}
+
+details {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+details[open] {
+    padding-bottom: 10px;
+}
+
+details summary {
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.doctor-setting {
+    font-weight: bold;
+}
+
+/* ===== Arztmodus Druckansicht ===== */
+
+.doctor-print body {
+    background: white;
+}
+
+/* Alles ausblenden, was nicht gedruckt werden soll */
+.doctor-print .controls,
+.doctor-print .table-header,
+.doctor-print button {
+    display: none !important;
+}
+
+
+/* Karten-Optik entfernen */
+.doctor-print .summary,
+.doctor-print table {
+    box-shadow: none;
+    border-radius: 0;
+}
+
+/* Inputs wie Text aussehen lassen */
+.doctor-print input {
+    border: none;
+    background: transparent;
+    padding: 0;
+    height: auto;
+    font-size: 14px;
+}
+
+/* Farben drucktauglich */
+.doctor-print .bp-normal,
+.doctor-print .bp-warning,
+.doctor-print .bp-danger {
+    background: transparent;
+    color: black;
+}
+
+/* Arztmodus: Konfiguration ausblenden */
+.doctor-print .doctor-settings {
+    display: none;
+}

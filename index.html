@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Blutdruck Protokoll</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h2>Blutdruck Wochenprotokoll</h2>
+<div class="controls">
+    <button id="prevWeek">←</button>
+    <input type="date" id="startDate">
+    <button id="nextWeek">→</button>
+</div>
+
+<div id="weekSummary" class="summary"></div>
+<details>
+  <summary>⚙️ Einstellungen</summary>
+
+<div class="settings-row doctor-switch">
+  <label class="doctor-setting">
+    <input type="checkbox" id="doctorMode">
+    Arztmodus (nur Lesen)
+  </label>
+</div>
+
+<div class="settings-row doctor-settings">
+  <label>
+    Normal bis:
+    <input type="number" id="limitNormal">
+  </label>
+
+  <label>
+    Kritisch ab:
+    <input type="number" id="limitWarning">
+  </label>
+
+  <button id="saveLimits">Speichern</button>
+</div>
+
+</details>
+
+ 
+
+
+<table id="bpTable">
+    <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Zeit</th>
+            <th>Systolisch (mmHg)</th>
+            <th>Diastolisch (mmHg)</th>
+            <th>Puls</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+
+
+<script src="js/app.js"></script>
+</body>
+</html>
