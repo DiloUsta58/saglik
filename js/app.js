@@ -60,6 +60,7 @@ function renderWeek(startDate) {
             }
 
             row.innerHTML += `
+                <td><input type="time" data-field="clock"></td>
                 <td class="time">${time}</td>
                 <td><input type="number" data-field="sys"></td>
                 <td><input type="number" data-field="dia"></td>
@@ -70,9 +71,10 @@ function renderWeek(startDate) {
 
             if (storedData[storageKey]) {
                 const inputs = row.querySelectorAll("input");
-                inputs[0].value = storedData[storageKey].sys;
-                inputs[1].value = storedData[storageKey].dia;
-                inputs[2].value = storedData[storageKey].pulse;
+                inputs[0].value = storedData[storageKey].clock || "";
+                inputs[1].value = storedData[storageKey].sys;
+                inputs[2].value = storedData[storageKey].dia;
+                inputs[3].value = storedData[storageKey].pulse;
             }
 
             row.querySelectorAll("input").forEach(input => {
@@ -119,10 +121,12 @@ function saveCellData(startDate) {
         const inputs = row.querySelectorAll("input");
 
         data[`${date}_${time}`] = {
-            sys: inputs[0].value,
-            dia: inputs[1].value,
-            pulse: inputs[2].value
+            clock: inputs[0].value,
+            sys: inputs[1].value,
+            dia: inputs[2].value,
+            pulse: inputs[3].value
         };
+
     });
 
     localStorage.setItem(weekKey, JSON.stringify(data));
