@@ -19,6 +19,24 @@
 
 <h2 data-i18n="h2">Blutdruck Wochenprotokoll</h2>
 
+<div class="doctor-header">
+  <div>
+    <strong data-i18n="patientName">Name:</strong>
+    <span id="patientNameValue">–</span>
+  </div>
+
+  <div>
+    <strong data-i18n="birthDate">Geburtsdatum:</strong>
+    <span id="birthDateValue">–</span>
+  </div>
+
+  <div>
+    <strong data-i18n="period">Zeitraum:</strong>
+    <span id="doctorPeriod">–</span>
+  </div>
+</div>
+
+
 
   <div class="reset-row">
       <button id="resetData" class="danger-btn" data-i18n="ResetAllData">
@@ -27,6 +45,17 @@
   </div>
 
 
+<div id="doctorSummary" class="doctor-summary"></div>
+
+
+<div class="controls">
+    <button id="prevWeek" data-i18n="prev">← Zurück</button>
+    <input type="date" id="startDate">
+    <button id="nextWeek" data-i18n="next">→ Vor</button>
+</div>
+
+
+<details>
 <p class="lang-row language-settings">
   <img
     id="langFlag"
@@ -43,34 +72,30 @@
   </select>
 </p>
 
+    <div class="settings-row patient-settings">
+      <label><span data-i18n="patientName">Name:</span><input type="text" id="patientNameInput"></label>
+      <label><span data-i18n="birthDate">Geburtsdatum:</span><input type="date" id="patientBirthInput"></label><button id="savePatient" data-i18n="save">Speichern</button>
+          
+    </div>
 
 
-<div class="controls">
-    <button id="prevWeek" data-i18n="prev">← Zurück</button>
-    <input type="date" id="startDate">
-    <button id="nextWeek" data-i18n="next">→ Vor</button>
-</div>
+    <summary data-i18n="setings">⚙️ Einstellungen</summary>
+    <div class="settings-row doctor-switch">
+      <label class="doctor-setting">
+        <input type="checkbox" id="doctorMode">
+        <span data-i18n="doctorMode">Arztmodus (nur Lesen)</span>
+      </label>
+    </div>
+
+    <div class="settings-row doctor-settings">
+      <label><span data-i18n="limitN">Normal bis:</span><input type="number" id="limitNormal"></label>
+      <label><span data-i18n="limitW">Kritisch ab:</span><input type="number" id="limitWarning"></label>
+      <button id="saveLimits" data-i18n="save">Speichern</button>
+    </div>
+</details>
 
 <div id="weekSummary" class="summary"></div>
 
-<div id="doctorSummary" class="doctor-summary"></div>
-
-<details>
-  <summary data-i18n="setings">⚙️ Einstellungen</summary>
-<div class="settings-row doctor-switch">
-  <label class="doctor-setting">
-    <input type="checkbox" id="doctorMode">
-    <span data-i18n="doctorMode">Arztmodus (nur Lesen)</span>
-  </label>
-</div>
-
-<div class="settings-row doctor-settings">
-  <label><span data-i18n="limitN">Normal bis:</span><input type="number" id="limitNormal"></label>
-  <label><span data-i18n="limitW">Kritisch ab:</span><input type="number" id="limitWarning"></label>
-  <button id="saveLimits" data-i18n="save">Speichern</button>
-</div>
-
-</details>
 
 <table id="bpTable">
     <thead>
@@ -85,7 +110,7 @@
     </thead>
     <tbody></tbody>
 </table>
-
+<center><button class="no-print" onclick="printTable()">Drucken</button></center>
 <p>
   <footer>
     © Dilaver Bölükbaşı 2026

@@ -1,15 +1,32 @@
+/* =========================
+   Globale Referenzen
+========================= */
+
 const tableBody = document.querySelector("#bpTable tbody");
 const startDateInput = document.getElementById("startDate");
+// DOM-Referenzen für Grenzwerte
+const limitNormal = document.getElementById("limitNormal");
+const limitWarning = document.getElementById("limitWarning");
+const PATIENT_KEY = "bp_patient";
+
+/* =========================
+   Zeitpunkte (sprachneutral)
+========================= */
 
 function getTimes() {
     return [
-        t("morning"),
-        t("noon"),
-        t("evening")
+        { id: "morning", label: t("morning") },
+        { id: "noon", label: t("noon") },
+        { id: "evening", label: t("evening") }
     ];
 }
 
+/* =========================
+   Konstanten & State
+========================= */
+
 const DAYS_IN_WEEK = 7;
+
 const DEFAULT_LIMITS = {
     normal: 130,
     warning: 180
@@ -18,6 +35,9 @@ const DEFAULT_LIMITS = {
 let limits = loadLimits();
 let doctorMode = false;
 
+/* =========================
+   Grenzwerte
+========================= */
 
 function loadLimits() {
     return JSON.parse(localStorage.getItem("bp_limits")) || DEFAULT_LIMITS;
@@ -28,42 +48,83 @@ function saveLimits(newLimits) {
     localStorage.setItem("bp_limits", JSON.stringify(limits));
 }
 
-// Zentrale Datumsfunktion
-// Anzeigeformat: dd.mm.jjjj
+/* =========================
+   Patienten Name Speichern
+========================= */
+document.getElementById("savePatient").addEventListener("click", () => {
+    const patient = {
+        name: document.getElementById("patientNameInput").value.trim(),
+        birth: document.getElementById("patientBirthInput").value
+    };
+
+    localStorage.setItem(PATIENT_KEY, JSON.stringify(patient));
+    loadPatient();
+});
+
+/* =========================
+   Patienten Name Laden
+========================= */
+function loadPatient() {
+    const data = JSON.parse(localStorage.getItem(PATIENT_KEY));
+    if (!data) return;
+
+    document.getElementById("patientNameInput").value = data.name || "";
+    document.getElementById("patientBirthInput").value = data.birth || "";
+
+    document.getElementById("patientNameValue").innerText =
+        data.name || "–";
+
+    document.getElementById("birthDateValue").innerText =
+        data.birth
+            ? formatDateDisplay(new Date(data.birth))
+            : "–";
+}
+
+
+/* =========================
+   Datum – Anzeige & Keys
+========================= */
+
+// Anzeigeformat: dd.mm.yyyy
 function formatDateDisplay(date) {
-  const d = String(date.getDate()).padStart(2, "0");
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const y = date.getFullYear();
-  return `${d}.${m}.${y}`;
+    const d = String(date.getDate()).padStart(2, "0");
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const y = date.getFullYear();
+    return `${d}.${m}.${y}`;
 }
 
-// Storage / interne Keys: yyyy-mm-dd
+// Interner Tages-Key: yyyy-mm-dd (lokal, stabil)
 function formatDateISO(date) {
-  return date.toISOString().split("T")[0];
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
 }
 
+/* =========================
+   Initialisierung
+========================= */
 
-
-
-// Initialisierung
 init();
 
 function init() {
     const today = new Date();
     startDateInput.valueAsDate = today;
+    loadPatient();
     renderWeek(today);
 
     document.getElementById("resetData").addEventListener("click", () => {
-        const ok = confirm(t("resetConfirm"));
-
-        if (!ok) return;
-
+        if (!confirm(t("resetConfirm"))) return;
         localStorage.clear();
         location.reload();
     });
+    
 }
 
-// Tabelle für 7 Tage erzeugen
+/* =========================
+   Tabelle rendern
+========================= */
+
 function renderWeek(startDate) {
     tableBody.innerHTML = "";
 
@@ -77,16 +138,13 @@ function renderWeek(startDate) {
         const dateKey = formatDateISO(currentDate);
         const dateDisplay = formatDateDisplay(currentDate);
 
-
-        getTimes().forEach((time, index) => {
+        getTimes().forEach((timeObj, index) => {
             const row = document.createElement("tr");
-            row.dataset.date = dateKey; // z.B. 2026-01-28 (ISO)
-            row.dataset.time = time;    // Morgens | Mittag | Abend
+            row.dataset.date = dateKey;
+            row.dataset.time = timeObj.id;
 
-            // Datum nur einmal pro Tag
             if (index === 0) {
                 const dateCell = document.createElement("td");
-                dateCell.className = "date";
                 dateCell.rowSpan = 3;
                 dateCell.innerText = dateDisplay;
                 row.appendChild(dateCell);
@@ -94,20 +152,20 @@ function renderWeek(startDate) {
 
             row.innerHTML += `
                 <td><input type="time" data-field="clock"></td>
-                <td class="time">${time}</td>
+                <td class="time">${timeObj.label}</td>
                 <td><input type="number" data-field="sys"></td>
                 <td><input type="number" data-field="dia"></td>
                 <td><input type="number" data-field="pulse"></td>
             `;
 
-            const storageKey = `${dateKey}_${time}`;
+            const storageKey = `${dateKey}_${timeObj.id}`;
 
             if (storedData[storageKey]) {
                 const inputs = row.querySelectorAll("input");
                 inputs[0].value = storedData[storageKey].clock || "";
-                inputs[1].value = storedData[storageKey].sys;
-                inputs[2].value = storedData[storageKey].dia;
-                inputs[3].value = storedData[storageKey].pulse;
+                inputs[1].value = storedData[storageKey].sys || "";
+                inputs[2].value = storedData[storageKey].dia || "";
+                inputs[3].value = storedData[storageKey].pulse || "";
             }
 
             row.querySelectorAll("input").forEach(input => {
@@ -117,23 +175,25 @@ function renderWeek(startDate) {
                 });
             });
 
-            // Arztmodus: nur Lesen
             if (doctorMode) {
-                row.querySelectorAll("input").forEach(input => {
-                    input.disabled = true;
-                });
+                row.querySelectorAll("input").forEach(input => input.disabled = true);
             }
 
             validateBloodPressure(row);
             tableBody.appendChild(row);
         });
+        
     }
     updateWeekSummary(startDate);
     updateTitle();
-
+    updateDoctorSummary();
+    updateDoctorHeader(startDate);
 }
 
-// Speichert komplette Woche
+/* =========================
+   Speichern / Laden
+========================= */
+
 function saveCellData(startDate) {
     const weekKey = getWeekKey(startDate);
     const data = {};
@@ -141,7 +201,6 @@ function saveCellData(startDate) {
     tableBody.querySelectorAll("tr").forEach(row => {
         const date = row.dataset.date;
         const time = row.dataset.time;
-
         const inputs = row.querySelectorAll("input");
 
         data[`${date}_${time}`] = {
@@ -150,40 +209,40 @@ function saveCellData(startDate) {
             dia: inputs[2].value,
             pulse: inputs[3].value
         };
-
     });
 
     localStorage.setItem(weekKey, JSON.stringify(data));
 }
 
-
-// Daten laden
 function loadWeekData(weekKey) {
     return JSON.parse(localStorage.getItem(weekKey)) || {};
 }
 
-// Wochen-Key (z. B. week_2026-01-28)
+/* =========================
+   Wochen-Key (UTC-sicher)
+========================= */
+
 function getWeekKey(date) {
     const d = new Date(date);
-    d.setHours(0, 0, 0, 0);
+    d.setHours(12, 0, 0, 0);
 
     const monday = new Date(d);
     const day = monday.getDay() || 7;
     monday.setDate(monday.getDate() - day + 1);
 
-    return `week-${monday.toISOString().slice(0, 10)}`;
+    const y = monday.getFullYear();
+    const m = String(monday.getMonth() + 1).padStart(2, "0");
+    const da = String(monday.getDate()).padStart(2, "0");
+
+    return `week-${y}-${m}-${da}`;
 }
 
+/* =========================
+   Navigation
+========================= */
 
-
-// Navigation
-document.getElementById("prevWeek").addEventListener("click", () => {
-    changeWeek(-7);
-});
-
-document.getElementById("nextWeek").addEventListener("click", () => {
-    changeWeek(7);
-});
+document.getElementById("prevWeek").addEventListener("click", () => changeWeek(-7));
+document.getElementById("nextWeek").addEventListener("click", () => changeWeek(7));
 
 startDateInput.addEventListener("change", () => {
     renderWeek(new Date(startDateInput.value));
@@ -196,6 +255,10 @@ function changeWeek(days) {
     renderWeek(date);
 }
 
+/* =========================
+   Validierung
+========================= */
+
 function validateBloodPressure(row) {
     const sysInput = row.querySelector('input[data-field="sys"]');
 
@@ -206,94 +269,67 @@ function validateBloodPressure(row) {
     }
 
     const sys = parseInt(sysInput.value, 10);
-
     row.classList.remove("bp-normal", "bp-warning", "bp-danger");
 
     if (sys < limits.normal) {
         row.classList.add("bp-normal");
         row.dataset.warned = "false";
-    } 
-    else if (sys <= limits.warning) {
+    } else if (sys <= limits.warning) {
         row.classList.add("bp-warning");
         row.dataset.warned = "false";
-    } 
-    else {
+    } else {
         row.classList.add("bp-danger");
-
-        // ⚠️ echte Warnung – nur einmal
         if (row.dataset.warned !== "true") {
-            alert(
-            t("alertCriticalTitle") + "\n\n" +
-            t("alertCriticalText")
-            );
+            alert(t("alertCriticalTitle") + "\n\n" + t("alertCriticalText"));
             row.dataset.warned = "true";
         }
     }
 }
 
-/* Wochenanalyse */
+/* =========================
+   Wochen-Zusammenfassung
+========================= */
+
 function updateWeekSummary(startDate) {
-    const weekKey = getWeekKey(startDate);
-    const data = loadWeekData(weekKey);
+    const data = loadWeekData(getWeekKey(startDate));
 
     let normal = 0, warning = 0, danger = 0;
 
-    Object.values(data).forEach(entry => {
-        const sys = parseInt(entry.sys, 10);
+    Object.values(data).forEach(e => {
+        const sys = parseInt(e.sys, 10);
         if (!sys) return;
-
         if (sys < limits.normal) normal++;
         else if (sys <= limits.warning) warning++;
         else danger++;
     });
 
-        document.getElementById("weekSummary").innerHTML = `
+    document.getElementById("weekSummary").innerHTML = `
         <span>🟢 ${t("normal")}: ${normal}</span>
         <span>🟡 ${t("warning")}: ${warning}</span>
         <span>🔴 ${t("danger")}: ${danger}</span>
-        `;
-
+    `;
 }
 
-/* speichern & anwenden */
-document.getElementById("limitNormal").value = limits.normal;
-document.getElementById("limitWarning").value = limits.warning;
+/* =========================
+   Arztmodus
+========================= */
 
-document.getElementById("saveLimits").addEventListener("click", () => {
-    saveLimits({
-        normal: parseInt(limitNormal.value, 10),
-        warning: parseInt(limitWarning.value, 10)
-    });
-    renderWeek(new Date(startDateInput.value));
-});
+function updateTitle() {
+    document.querySelector("h2").innerText = doctorMode ? t("titleDoctor") : t("title");
+}
 
-/* Arzt-Zusammenfassung */
 function getDoctorSummary(startDate) {
-    const weekKey = getWeekKey(startDate);
-    const data = loadWeekData(weekKey);
+    const data = loadWeekData(getWeekKey(startDate));
     const entries = Object.values(data);
 
-    if (!entries.length) {
-        return null;
-    }
-
-    const sysValues = [];
-    const diaValues = [];
-    const pulseValues = [];
-    let critical = 0;
-
-    entries.forEach(e => {
-        if (e.sys) sysValues.push(+e.sys);
-        if (e.dia) diaValues.push(+e.dia);
-        if (e.pulse) pulseValues.push(+e.pulse);
-
-        if (e.sys && +e.sys >= limitWarning) {
-            critical++;
-        }
-    });
+    if (!entries.length) return null;
 
     const avg = arr =>
         arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length) : "-";
+
+    const sys = entries.map(e => +e.sys).filter(Boolean);
+    const dia = entries.map(e => +e.dia).filter(Boolean);
+    const pulse = entries.map(e => +e.pulse).filter(Boolean);
 
     const start = new Date(startDate);
     const end = new Date(startDate);
@@ -301,69 +337,45 @@ function getDoctorSummary(startDate) {
 
     return {
         period: `${formatDateDisplay(start)} – ${formatDateDisplay(end)}`,
-        count: entries.length,
-        avgSys: avg(sysValues),
-        avgDia: avg(diaValues),
-        avgPulse: avg(pulseValues),
-        critical
+        avgSys: avg(sys),
+        avgDia: avg(dia),
+        avgPulse: avg(pulse)
     };
 }
 
-
-function updateTitle() {
-    const title = document.querySelector("h2");
-    title.innerText = doctorMode
-    ? t("titleDoctor")
-    : t("title");
-}
-
 function updateDoctorSummary() {
-    const summaryEl = document.getElementById("doctorSummary");
-
+    const el = document.getElementById("doctorSummary");
     if (!doctorMode) {
-        summaryEl.innerText = "";
+        el.innerText = "";
         return;
     }
 
-    const summary = getDoctorSummary(new Date(startDateInput.value));
-
-    summaryEl.innerText = summary
-        ? `${summary.period} | Ø ${summary.avgSys}/${summary.avgDia} | Puls Ø ${summary.avgPulse}`
+    const s = getDoctorSummary(new Date(startDateInput.value));
+    el.innerText = s
+        ? `${s.period} | Ø ${s.avgSys}/${s.avgDia} | Puls Ø ${s.avgPulse}`
         : t("noValues");
 }
 
 document.getElementById("doctorMode").addEventListener("change", e => {
     doctorMode = e.target.checked;
-
-    document.documentElement.classList.toggle(
-        "doctor-print",
-        doctorMode
-    );
-
-    updateTitle();
+    document.documentElement.classList.toggle("doctor-print", doctorMode);
     renderWeek(new Date(startDateInput.value));
-    updateDoctorSummary();
 });
 
+/* =========================
+   Sprache
+========================= */
 
-
-
-
-/* Language / Sparache / Dil Secimi */
 const langSelect = document.getElementById("languageSelect");
 
 langSelect.addEventListener("change", e => {
     const lang = e.target.value;
     setLanguage(lang);
     updateLanguageFlag(lang);
-    // 🔁 Tabelle neu aufbauen, damit getTimes() neu greift
     renderWeek(new Date(startDateInput.value));
 });
 
-
-// 🌍 Sprache beim ersten Start automatisch erkennen
 let savedLang = localStorage.getItem("language");
-
 if (!savedLang) {
     savedLang = detectBrowserLanguage();
     localStorage.setItem("language", savedLang);
@@ -372,7 +384,6 @@ if (!savedLang) {
 langSelect.value = savedLang;
 setLanguage(savedLang);
 updateLanguageFlag(savedLang);
-// 🔁 Tabelle neu rendern (wichtig für getTimes!)
 renderWeek(new Date(startDateInput.value));
 
 function updateLanguageFlag(lang) {
@@ -383,10 +394,42 @@ function updateLanguageFlag(lang) {
         fr: "flags/flagfr.png"
     };
 
-    const flagImg = document.getElementById("langFlag");
-    if (flagImg && flags[lang]) {
-        flagImg.src = flags[lang];
-        flagImg.alt = lang.toUpperCase();
+    const img = document.getElementById("langFlag");
+    if (img && flags[lang]) {
+        img.src = flags[lang];
+        img.alt = lang.toUpperCase();
     }
 }
 
+if (limitNormal && limitWarning) {
+    limitNormal.value = limits.normal;
+    limitWarning.value = limits.warning;
+}
+
+const saveLimitsBtn = document.getElementById("saveLimits");
+
+if (saveLimitsBtn && limitNormal && limitWarning) {
+    saveLimitsBtn.addEventListener("click", () => {
+        saveLimits({
+            normal: parseInt(limitNormal.value, 10),
+            warning: parseInt(limitWarning.value, 10)
+        });
+        renderWeek(new Date(startDateInput.value));
+    });
+}
+
+function updateDoctorHeader(startDate) {
+    const start = new Date(startDate);
+    const end = new Date(startDate);
+    end.setDate(start.getDate() + 6);
+
+    document.getElementById("doctorPeriod").innerText =
+        `${formatDateDisplay(start)} – ${formatDateDisplay(end)}`;
+}
+
+/* =========================
+   Drucken
+========================= */
+function printTable() {
+  window.print();
+}

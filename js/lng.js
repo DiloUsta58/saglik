@@ -30,7 +30,11 @@ const translations = {
     titleDoctor: "Blutdruck Wochenprotokoll – Arztansicht",
     noValues: "Keine Messwerte",
     danger: "Kritisch",
-    save: "Speichern"
+    save: "Speichern",
+    patientName: "Name",
+    birthDate: "Geburtsdatum",
+    period: "Zeitraum"
+
   },
 
   tr: {
@@ -60,7 +64,11 @@ const translations = {
     titleDoctor: "Tansiyon Haftalık Takip – Doktor Görünümü",
     noValues: "Ölçüm yok",
     danger: "Kritik",
-    save: "Kaydet"
+    save: "Kaydet",
+    patientName: "İsim",
+    birthDate: "Doğumtarih",
+    period: "Zaman Arası"
+
   },
 
   en: {
@@ -90,7 +98,11 @@ const translations = {
     titleDoctor: "Blood Pressure Weekly Log – Doctor View",
     noValues: "No measurements",
     danger: "Critical",
-    save: "Save"
+    save: "Save",
+    patientName: "Name",
+    birthDate: "Birth Date",
+    period: "Periode"
+
   },
 
   fr: {
@@ -120,7 +132,12 @@ const translations = {
     titleDoctor: "Suivi Hebdomadaire – Vue Médecin",
     noValues: "Aucune mesure",
     danger: "Critique",
-    save: "Enregistrer"
+    save: "Enregistrer",
+    patientName: "Nom",  
+    birthDate: "Date de naissance",
+    period: "Période"
+
+
   }
 };
 
