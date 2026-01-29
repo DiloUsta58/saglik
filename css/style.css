@@ -286,10 +286,6 @@ tbody tr:hover td {
     display: none !important;
 }
 /* =========================
-   Reset-Button oben rechts fixiert
-========================= */
-
-/* =========================
    Reset-Button global fixiert
 ========================= */
 
@@ -481,87 +477,121 @@ html.doctor-print details {
     border-color: #000 !important;
 }
 
+.doctor-summary {
+        display: block !important;
+        border: none !important;
+        padding: 0 12px 0 0 !important;
+        margin: 0 0 0 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12px;
+}
+
 
 /* =========================
-   ECHTER DRUCKMODUS
+   DRUCKMODUS (A4 CLEAN)
 ========================= */
 @media print {
 
-    /* Reset Dark Theme komplett */
+    /* ===== GLOBAL RESET ===== */
     html, body {
         background: #fff !important;
         color: #000 !important;
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
-    /* Titel */
-    h2 {
+    * {
         color: #000 !important;
-        background: #fff !important;
-        margin-bottom: 12px;
+        background: transparent !important;
+        box-shadow: none !important;
     }
 
-    /* Karten / Container */
+    /* ===== TITEL ===== */
+    h2 {
+        background: #fff !important;
+        color: #000 !important;
+        margin: 0 0 10px 0 !important;
+        padding: 0 !important;
+    }
+
+    /* ===== ALLES UI AUSBLENDEN ===== */
     .controls,
     .summary,
-    details {
-        background: #fff !important;
-        color: #000 !important;
-        border: 1px solid #000 !important;
+    details,
+    .settings-row,
+    .doctor-settings,
+    .doctor-switch,
+    .reset-row,
+    .language-settings,
+    .lang-row,
+    button {
+        display: none !important;
     }
 
-    /* Tabelle */
-    table {
+    /* ===== PATIENTEN-EINGABE AUS ===== */
+    .patient-settings {
+        display: none !important;
+    }
+
+    /* ===== ARZT-KOPF (OHNE RAHMEN!) ===== */
+    .doctor-header {
+        display: block !important;
+        border: none !important;
+        padding: 0 0 10px 0 !important;
+        margin: 0 0 12px 0 !important;
         background: #fff !important;
-        border-collapse: collapse;
-        width: 100%;
+        color: #000 !important;
+        font-size: 12px;
+    }
+
+    .doctor-header div {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    /* ===== ARZT-ZUSAMMENFASSUNG (KEIN RAHMEN) ===== */
+    .doctor-summary {
+        display: block !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 0 10px 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12px;
+    }
+
+    /* ===== TABELLE ===== */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        page-break-inside: avoid;
+        font-size: 11px;
     }
 
     th, td {
+        border: 1px solid #000 !important;
         background: #fff !important;
         color: #000 !important;
-        border: 1px solid #000 !important;
+        padding: 4px 6px !important;
     }
 
-    /* Inputs nur Text */
+    th {
+        font-weight: 600;
+    }
+
+    /* ===== INPUTS = TEXT ===== */
     input,
     select {
         background: transparent !important;
         color: #000 !important;
         border: none !important;
-        box-shadow: none !important;
+        padding: 0 !important;
+        font-size: 11px;
         appearance: none;
     }
 
-    /* Buttons, Sprache, Reset, Controls weg */
-    button,
-    .reset-row,
-    .language-settings,
-    .lang-row,
-    .controls {
-        display: none !important;
-    }
-
-    /* Arzt-Zusammenfassung sichtbar */
-    .doctor-summary {
-        display: block !important;
-        background: #fff !important;
-        color: #000 !important;
-        border: 1px solid #000 !important;
-        margin-bottom: 16px;
-    }
-
-    /* Einstellungen: nur Arzt-Schalter sichtbar */
-    .doctor-settings {
-        display: none !important;
-    }
-
-    .doctor-switch {
-        display: block !important;
-    }
-
-    /* Farben der Warnstufen entfernen */
+    /* ===== STATUS-FARBEN ENTFERNEN ===== */
     .bp-normal,
     .bp-warning,
     .bp-danger {
@@ -569,143 +599,22 @@ html.doctor-print details {
         color: #000 !important;
     }
 
-    /* Seitenumbruch nach jeder Woche (optional) */
-    table {
-        page-break-inside: avoid;
+    /* ===== A4 SEITE ===== */
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
     }
-}
-
-/* =========================
-   Arztkopf
-========================= */
-
-.doctor-header {
-    display: none;
-    margin-bottom: 14px;
-    padding: 10px 12px;
-    border: 1px solid #000;
-    background: #fff;
-    color: #000;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.doctor-header div {
-    margin-bottom: 4px;
-}
-
-/* Arztmodus sichtbar */
-.doctor-print .doctor-header {
-    display: block;
-}
-
-/* Druckmodus sichtbar */
-@media print {
-    .doctor-header {
-        display: block !important;
-    }
-}
-/* Normalmodus: Patientendaten ausblenden */
-.patient-settings {
-    display: flex;
-    gap: 10px;
-}
-
-.doctor-print .patient-settings {
-    display: none;
-}
-
-/* =========================
-   Patientendaten – elegant
-========================= */
-
-.patient-settings {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto;
-    gap: 12px;
-    align-items: end;
-    margin-bottom: 12px;
-    padding: 12px 14px;
-    background: linear-gradient(
-        180deg,
-        rgba(255,255,255,0.03),
-        rgba(255,255,255,0.01)
-    );
-    border: 1px solid var(--border);
-    border-radius: 10px;
-}
-
-.patient-settings label {
-    display: flex;
-    flex-direction: column;
-    font-size: 13px;
-    color: var(--text-muted);
-}
-
-.patient-settings input {
-    margin-top: 4px;
-    font-size: 14px;
-    padding: 6px 8px;
-    border-radius: 6px;
-}
-
-/* Speichern-Button dezenter */
-.patient-settings button {
-    height: 36px;
-    padding: 0 16px;
-    border-radius: 999px;
-    font-weight: 500;
-}
-
-/* =========================
-   Arztkopf – professionell
-========================= */
-
-.doctor-header {
-    display: none;
-    margin: 10px 0 16px;
-    padding: 14px 18px;
-    border-radius: 10px;
-    background: #fff;
-    color: #000;
-    border: 1px solid #000;
-    font-size: 14px;
-}
-
-.doctor-header div {
-    display: inline-block;
-    margin-right: 24px;
-}
-
-.doctor-header strong {
-    font-weight: 600;
-}
-
-/* Arztmodus sichtbar */
-.doctor-print .doctor-header {
-    display: block;
-}
-
-/* =========================
-   Arztmodus – Eingaben ausblenden
-========================= */
-
-.doctor-print .patient-settings {
-    display: none;
-}
-
-/* =========================
-   Mobile Optimierung
-========================= */
-
-@media (max-width: 768px) {
-    .patient-settings {
-        grid-template-columns: 1fr;
-    }
-
-    .doctor-header div {
-        display: block;
-        margin-bottom: 6px;
+    details,
+    summary,
+    details *,
+    .controls,
+    .doctor-switch {
+        display: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
     }
 }
 
@@ -744,7 +653,6 @@ html.doctor-print details {
     border: 1px solid var(--border);
 }
 
-/* Button im Dark Mode */
 .patient-settings button {
     height: 36px;
     padding: 0 16px;
@@ -761,25 +669,73 @@ html.doctor-print details {
 }
 
 /* =========================
-   Arztmodus – Patientendaten hell
+   Arztmodus – Patientendaten ausblenden
 ========================= */
 
 .doctor-print .patient-settings {
-    background: #fff !important;
-    color: #000 !important;
-    border-color: #000 !important;
+    display: none;
 }
 
-.doctor-print .patient-settings label {
-    color: #000 !important;
+/* =========================
+   Arztkopf – EINZEILIG & sauber
+========================= */
+
+.doctor-header {
+    display: none;
+    align-items: center;
+    gap: 18px;
+
+    margin: 10px 0 16px;
+    padding: 14px 18px;
+
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 10px;
+
+    font-size: 14px;
+    white-space: nowrap;
 }
 
-.doctor-print .patient-settings input {
-    background: transparent !important;
-    color: #000 !important;
-    border: 1px solid #000 !important;
+/* Arztmodus sichtbar */
+.doctor-print .doctor-header {
+    display: flex;
 }
 
-.doctor-print .patient-settings button {
-    display: none !important;
+/* Druckmodus sichtbar */
+@media print {
+    .doctor-header {
+        display: flex !important;
+    }
 }
+
+/* Zeitraum */
+#doctorPeriod {
+    font-size: 13px;
+    color: #444;
+}
+
+/* Zusammenfassung */
+#doctorSummary {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+/* =========================
+   Mobile Optimierung
+========================= */
+
+@media (max-width: 768px) {
+    .patient-settings {
+        grid-template-columns: 1fr;
+    }
+
+    .doctor-header {
+        flex-direction: column;
+        align-items: flex-start;
+        white-space: normal;
+        gap: 6px;
+    }
+}
+
