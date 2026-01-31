@@ -1,1865 +1,741 @@
+/* =========================
+   GLOBAL DARK THEME
+========================= */
 
-/* =====================================================
-   DESIGN SYSTEM – LIGHT / DARK MODE
-===================================================== */
 :root {
-  --bg: #f4f6fb;
-  --bg-card: #fde68a;
-  --text: #1f2937;
-  --accent: #2563eb;
-  --accent-soft: #05b93b;
-  --row-even: #03fcb1;
-  --row-odd: #131208;
-  --border: #d0d7e2;
-  --textColorSum: #077517;
+    --bg-main: #121212;
+    --bg-card: #1e1e1e;
+    --bg-input: #2a2a2a;
 
-}
+    --text-main: #eaeaea;
+    --text-muted: #a0a0a0;
 
-[data-theme="dark"] {
-  --bg: #1e1e1e;
-  --bg-card: #1e1e1e;
-  --text: #eaeaea;
-  --accent: #60a5fa;
-  --accent-soft: #1e293b;
-  --Drow-even: #ffffff;
-  --Drow-odd: #334155;
-  --border: #334155;
-  --textColorSum: #00a8f0dc;
-  --row-hover: rgba(255, 255, 255, 0.06);
-  
-}
+    --border: #3a3a3a;
 
-/* =====================================================
-   GLOBAL
-===================================================== */
-/* 🔒 APP IST STANDARDMÄSSIG VERSTECKT */
-#app {
-  display: none;
-}
-
-* {
-  box-sizing: border-box;
+    --green: #3cb371;
+    --yellow: #f0c75e;
+    --red: #e25555;
 }
 
 body {
-  margin: 0;
-  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-}
-
-[data-theme="dark"] body {
-  background: var(--bg);
-  color: var(--text);
-}
-
-.hidden {
-    display: none;
-}
-
-#keSection th.sortable {
-  cursor: pointer;
-  user-select: none;
-}
-
-#keSection th.sortable:hover {
-  background: rgba(0,0,0,0.05);
-}
-
-[data-theme="dark"] #keSection th.sortable:hover {
-  background: rgba(233, 192, 5, 0.359);
-}
-
-.sort-indicator {
-  margin-left: 6px;
-  font-size: 11px;
-  opacity: 0.7;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 20px;
 }
 
 /* =========================
-   MOBILE SORT BAR
+   HEADINGS
 ========================= */
-.mobile-sort-bar {
-  display: none;
+
+h2 {
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
-@media (max-width: 1024px) {
-  .mobile-sort-bar {
-    display: block;
-    margin: 10px auto;
-    max-width: 65ch;
-    position:relative;
-    top: 6px;
-    z-index: 50;
+/* =========================
+   CARDS / SECTIONS
+========================= */
 
+.controls,
+.summary,
+details {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
     display: flex;
-    gap: 8px;
     align-items: center;
-
-    padding: 8px 10px;
-    margin-bottom: 8px;
-
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(6px);
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  }
-
-  [data-theme="dark"] .mobile-sort-bar {
-    background: rgba(30,30,30,0.9);
-  }
-
-  [data-theme="dark"] .Xoption {
-    background: rgba(30,30,30,0.9);
-    backdrop-filter: blur(6px);
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.12);
-    color:#0691fb;
-  }
-
-  .mobile-sort-bar select {
-    flex: 1;
-    padding: 8px 10px;
-    border-radius: 10px;
-    border: 1px solid rgba(0,0,0,0.15);
-    font-size: 14px;
-    width: 50%;
-  }
-
-  .mobile-sort-bar button {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: none;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    background: #fff;
-  }
-
-  [data-theme="dark"] .mobile-sort-bar button {
-    background: #444;
-    color: #fff;
-  }
-    [data-theme="dark"] .mobile-sort-bar button:hover {
-    background: #8b0202;
-    color: #fff;
-  }
+    gap: 10px;
 }
 
-
-/* =====================================================
-   LOGIN BOX – PROFESSIONAL
-===================================================== */
-#loginBox {
-  max-width: 360px;
-  margin: 10vh auto;
-  background: var(--bg-card);
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-#loginBox h2 {
-  margin-top: 0;
-  text-align: center;
-  font-weight: 600;
-}
-
-input, select {
-  width: 100%;
-  padding: 10px 12px;
-  margin: 8px 0;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  font-size: 15px;
-}
-
-/* Key Input – max 10 Zeichen */
-#keyInput {
-  max-width: 180px;
-}
-
-
-
-.admin-btn.danger {
-  position: absolute;
-  background: #c62828;
-  color: #fff;
-  border-radius: 8px;
-  padding: 8px 14px;
-  border: none;
-  top: 10px;
-  right: 10px;
-}
-
-.admin-btn.danger:hover {
-  background: #b71c1c;
-}
-
-/* =====================================================
-   BUTTONS – WINDOWS 11 STYLE
-===================================================== */
 button {
-  background: linear-gradient(180deg, #ffffff, #e6e9f2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 10px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
 }
 
 button:hover {
-  background: #3b82f6;
-  color: #0c0c0c;
+    background: #333;
 }
 
-button:active {
-  transform: scale(0.98);
-}
-
-/* =====================================================
-   HEADINGS
-===================================================== */
-h1, h2, h3 {
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.fs-title {
-  text-align: center;
-  margin: 20px 0 10px;
-}
-
-/* =====================================================
-   SEARCH & FILTER CONTROLS
-===================================================== */
-
-#categoryFilter {
-  display: block;
-  margin: 10px auto;
-  max-width: 65ch;
+.dilsecim {
+    background: var(--bg-input);
+    color:var(--text-main)
 }
 
 /* =========================
-   ZEILEN-AKTIONEN (+ / -) – FINAL
+   SETTINGS
 ========================= */
 
-td.row-action {
-  width: 44px;
-  min-width: 44px;
-  text-align: center;
-  vertical-align: middle;
-  overflow: visible;
+details summary {
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 8px;
 }
 
-td.protected .edit-icon {
-  display: none !important;
-}
-
-.row-btn.clear {
-  cursor: pointer;
-  color: #555;
-}
-
-.row-btn.clear:hover {
-  opacity: 1;
-  color: #000;
+.doctor-setting {
+    font-weight: 600;
 }
 
 /* =========================
-   HISTORY – LEER-ZUSTAND
+   TABLE
 ========================= */
 
-tr.history-empty td {
-  color: #231806;
-  background: rgba(63, 41, 7, 0.353);
-  font-weight: 600;
-  text-align: center;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
 }
 
-tr.history-empty {
-  background: rgba(192, 57, 43, 0.06);
+th {
+    background: #222;
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 6px;
+    font-weight: 500;
 }
 
-[data-theme="dark"] tr.history-empty td {
-  color: #e1dfdd;
-  background: rgba(63, 41, 7, 0.353);
-  font-weight: 600;
-  text-align: center;
+td {
+    border: 1px solid var(--border);
+    padding: 4px 6px;
+    font-size: 14px;
+    color: var(--text-main);
 }
 
-/* Buttons & Schloss */
-.row-btn,
-.row-lock {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 700;
-  min-width: 32px;
-  min-height: 32px;
-  cursor: pointer;
-  border-radius: 8px;
+/* =========================
+   INPUTS (ALLE TYPEN)
+========================= */
 
-  opacity: 0;
-  transition: opacity 0.15s ease;
+input[type="number"],
+input[type="date"],
+input[type="time"] {
+    width: 100%;
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 6px;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-/* Buttons nur bei Hover auf der Datenzeile anzeigen */
-tr.data-row:hover .row-btn,
-tr.data-row:hover .row-lock {
-  opacity: 1;
+input:focus {
+    outline: none;
+    border-color: #666;
 }
 
-/* Standard: unsichtbar */
-.row-btn,
-.row-lock {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s ease;
+input:disabled {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: transparent;
 }
 
-/* Bei Hover sichtbar */
-tr.data-row:hover .row-btn,
-tr.data-row:hover .row-lock {
-  opacity: 1;
-  pointer-events: auto;
+/* =========================
+   BLOOD PRESSURE STATES
+========================= */
+
+.bp-normal {
+    background: rgba(60, 179, 113, 0.25);
+    color: var(--green);
+}
+
+.bp-warning {
+    background: rgba(240, 199, 94, 0.25);
+    color: var(--yellow);
+}
+
+.bp-danger {
+    background: rgba(226, 85, 85, 0.25);
+    color: var(--red);
+}
+
+/* =========================
+   SUMMARY BADGES
+========================= */
+
+.summary span {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+/* =========================
+   DOCTOR MODE / PRINT
+========================= */
+
+html.doctor-print,
+body.doctor-print {
+    background: white !important;
+    color: black !important;
+}
+
+.doctor-print table,
+.doctor-print th,
+.doctor-print td {
+    background: white !important;
+    color: black !important;
+    border-color: black !important;
+}
+
+.doctor-print .controls,
+.doctor-print .table-header,
+.doctor-print button {
+    display: none !important;
+}
+
+.doctor-print input {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+}
+
+/* Arztmodus: Sprache ausblenden */
+.doctor-print .lang-row {
+    display: none !important;
+}
+
+tbody tr:hover td {
+    background: rgba(255,255,255,0.04);
+}
+
+/* ===== Arztansicht: nur Schalter sichtbar lassen ===== */
+
+/* Einstellungen-Container sichtbar lassen */
+.doctor-print details {
+    background: rgb(255, 255, 255);
+    display: block !important;
+}
+
+/* NUR Konfigurationsfelder ausblenden */
+.doctor-print .doctor-settings {
+    display: none !important;
+}
+
+/* Zusammenfassung ausblenden */
+.doctor-print .summary {
+    display: none !important;
+}
+
+/* =========================
+   Doctor Summary Box
+========================= */
+
+.doctor-summary {
+    display: none;
+    margin-bottom: 14px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    line-height: 1.5;
+}
+
+.doctor-summary h3 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.doctor-summary .period {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.doctor-summary ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.doctor-summary li {
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+/* Arztansicht / Druck */
+.doctor-print .doctor-summary {
+    display: block;
+    background: #fff;
+    color: #000;
+    border-color: #000;
+}
+
+/* =========================
+   Normalmodus – Einstellungen sichtbar
+========================= */
+.settings-row.doctor-settings {
+    display: flex;
+}
+
+/* =========================
+   Arztmodus – Einstellungen ausblenden
+========================= */
+.doctor-print .settings-row.doctor-settings {
+    display: none !important;
+}
+/* =========================
+   Reset-Button global fixiert
+========================= */
+
+.reset-row {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    z-index: 9999;
+}
+
+/* Button-Design */
+.danger-btn {
+    background: #8b1e1e;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+.danger-btn:hover {
+    background: #b32626;
+}
+
+/* Arztmodus: Button ausblenden */
+.doctor-print .reset-row {
+    display: none;
+}
+
+/* =========================
+   Sprachwahl mit PNG-Flaggen
+========================= */
+
+.lang-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lang-flag-img {
+    width: 28px;
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.6);
+}
+
+/* Arztmodus: Sprache ausblenden */
+.doctor-print .language-settings {
+    display: none;
 }
 
 
-/* 🔑 SICHTBAR, WENN DIE ZEILE ODER EINE ZELLE GEHOVERT IST */
-tr.data-row:hover .row-btn,
-tr.data-row:hover .row-lock,
-tr.data-row td:hover .row-btn,
-tr.data-row td:hover .row-lock {
-  opacity: 1;
+
+/* =========================
+   Tages-Trennung (3 Zeilen = 1 Tag)
+========================= */
+tbody tr:nth-child(3n) td {
+    border-bottom: 3px solid #656567;
+    padding-bottom: 12px;
 }
 
-/* Kategorie-Zeilen NIE */
-tr.category .row-btn,
-tr.category .row-lock {
-  display: none !important;
-}
+/* =========================
+   Zentrierte Spalten
+========================= */
 
-/* Touch-Geräte */
-@media (hover: none) {
-  .row-btn,
-  .row-lock {
-    opacity: 1;
-  }
-}
-
-/* =====================================================
-   TABELLEN – KLARE, RUHIGE DARSTELLUNG
-===================================================== */
-
-.lager-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--bg-card);
-  font-size: 14px;
-}
-
-/* Kopf */
-.lager-table thead th {
-  background: #e5e7eb;
-  color: #111827;
-  font-weight: 600;
-  padding: 10px 12px;
-  border-bottom: 2px solid var(--border);
-}
-
-
-/* Dark Mode Überschrift Tabelle */
-[data-theme="dark"] .lager-table thead th {
-  background: #1e293b;
-  color: #e5e7eb;
+/* Header */
+th:nth-child(1),
+th:nth-child(2),
+th:nth-child(3) {
+    text-align: center;
 }
 
 /* Zellen */
-.lager-table td {
-  border: 1px solid #000;
-  padding: 9px 12px;
-  border-bottom: 1px solid var(--border);
-  white-space: nowrap; /* Kein Umbruch erlaubt*/
-}
-
-/* Ruhiges Zebra – dezent */
-.lager-table tbody tr:nth-child(even) {
-  background: #f8fafc;
-}
-
-.lager-table tbody tr:nth-child(odd) {
-  background: #ffffff;
-}
-
-/* Dark Mode Zebra */
-[data-theme="dark"] .lager-table tbody tr:nth-child(even) {
-  background: #121212; 
-}
-
-[data-theme="dark"] .lager-table tbody tr:nth-child(odd) {
-  background: #1e1e1e;
-}
-
-/* Hover – KEIN Höhenwechsel */
-.lager-table tbody tr:hover {
-  background: rgba(0, 0, 0, 0.04);
-}
-[data-theme="dark"] .lager-table tbody tr:hover {
-  background: #554f02;
-}
-
-
-/* =====================================================
-   KATEGORIE-ZEILEN – GELB (WIE VORLAGE)
-===================================================== */
-
-.category-row td,
-tr.category td {
-  background: #fde68a;          /* Gelb */
-  color: #78350f;
-  font-weight: 700;
-  text-align: left;
-  border-top: 2px solid #f59e0b;
-  border-bottom: 2px solid #f59e0b;
-}
-
-/* Dark Mode Kategorie */
-[data-theme="dark"] .category-row td,
-[data-theme="dark"] tr.category td {
-  background: #92400e;
-  color: #fef3c7;
-  border-color: #fbbf24;
-}
-
-
-/* Suchtreffer */
-.highlight {
-  background: rgb(6, 110, 46);
-}
-
-/* =====================================================
-   EDIT ICONS
-===================================================== */
-.edit-wrapper {
-  display: contents;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.edit-icon {
-  opacity: 0;
-  cursor: pointer;
-}
-
-td:hover .edit-icon {
-  opacity: 1;
-}
-
-/* =========================
-   FM SECTION – TABLE STYLE
-========================= */
-
-#fmSection {
-  font-family: Arial, Helvetica, sans-serif;
-  background: #ffffff;
-}
-[data-theme="dark"] #fmSection {
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-}
-
-#fmSection table {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 100%;
-  font-size: 13px;
-}
-
-/* Tabellen Linien / Spalte */
-#fmSection th,
-#fmSection td {
-  border: 1px solid #000;
-  padding: 4px 6px;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-[data-theme="dark"] #fmSection th, #fmSection td {
-  border: 1px solid #523c3c;
-  padding: 10px 10px;
-  text-align: center;
-  vertical-align: middle;
-  white-space: nowrap;
-}
-
-/* Tabellen Beschreibung ...*/
-#fmSection thead th {
-  background-color: #5b9bd5;
-  color: #ffffff;
-  font-weight: bold;
-  position: sticky;
-  top: 0;
-  z-index: 10;  
-}
-
-[data-theme="dark"] #fmSection thead th {
-  background-color: #5b9bd5;
-  color: var(--text);
-  font-weight: bold;
-}
-
-#fmSection tbody tr:nth-child(even) {
-  background-color: #e9f2fb;
-}
-
-[data-theme="dark"] #fmSection tbody tr:nth-child(even) {
-  background-color: #121212;
-
-}
-
-/* Schriftfarbe Tabelle / Zeile 1 */
-#fmSection tbody tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-[data-theme="dark"] #fmSection tbody tr:nth-child(odd) {
-  background-color: #1e1e1e;
-  color: var(--text);
-}
-
-.fmTable {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--bg-card);
-  font-size: 14px;
-}
-
-/* fmSection */
-.lager-table tbody tr:hover {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-/* FM überschreibt bewusst */
-#fmSection .lager-table tbody tr:hover {
-  background: rgba(0, 0, 0, 0.08);
-  color: #086803;
-   /*font-weight: 600;        fett */
-  /* font-style: italic;     kursiv */
-  /*font-size: 2.05em;       leicht größer */  
-}
-
-[data-theme="dark"] #fmSection .lager-table tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.08) !important;
-  color: #0d7a05;
-  /*font-weight: 600;        fett */
-  /* font-style: italic;     kursiv */
-  /*font-size: 2.05em;       leicht größer */  
-}
-
-#fmSection tr {
-  font-size: 1.1em;
-}
-
-
-#fmSection .lager-table tbody tr:hover td[data-col="artikel"],
-#fmSection .lager-table tbody tr:hover td[data-col="bestand"] {
-  font-weight: 700;
-}
-
-
-.fm-bestand-zero {
-  background-color: #78350f;
-  color: #ffffff;
-}
-
-.fm-bestand-ok {
-  background-color: #0d7a05;
-  color: #ffffff;
-}
-
-
-.cell-input {
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 13px;
-  padding: 2px 4px;
-}
-
-/* =========================
-   SUCHTREFFER HIGHLIGHT
-========================= */
-
-.search-hit {
-  background-color: #ffe066;
-  padding: 0 2px;
-  border-radius: 3px;
-}
-
-[data-theme="dark"] .search-hit{
-  background-color: #ffd000;
-   color: #0f1a1d;
-}
-
-mark.search-hit {
-  background: #ffe066;
-  color: #000;
-  padding: 0 2px;
-  border-radius: 3px;
-}
-
-[data-theme="dark"] mark.search-hit {
-  background: #0098be;
-  color: #0f1a1d;
-}
-
-/* =========================
-   TAB-BAR - LIGHT
-========================= */
-
-  /* TAB BAR */
-  .tab-bar {
-    display: flex;
-    gap: 6px;
-    padding: 6px;
-    background: #eaeaea;
-    border-radius: 10px;
-    width: fit-content;
-    margin-bottom: 12px;
-  }
-
-  .tab-btn {
-    border: none;
-    background: transparent;
-    padding: 8px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    color: #333;
-  }
-
-  .tab-btn:hover {
-    background: rgba(0,0,0,0.05);
-  }
-
-  .tab-btn.active {
-    background: #0056a1;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.08);
-    color: #ffffff;
-  }
-
-  .tab-section {
-    display: none;
-    animation: fadeIn 0.2s ease-in-out;
-  }
-
-  .tab-section.active {
-    display: block;
-  }
-
-/* =========================
-   TAB-BAR - DARK
-========================= */
-
-[data-theme="dark"]  .tab-bar {
-    background-color: #1e1e1e;
-}
-
-[data-theme="dark"]  .tab-btn {
-    background-color: #2a2a2a;
-    color: #ffffff;
-}
-
-[data-theme="dark"]  .tab-btn.active {
-    background-color: #3b82f6;
-    color: #ffffff;
-}
-
-[data-theme="dark"]  .tab-btn:hover {
-    background-color: #3b82f6;
-    color: #ffffff;
-}
-
-
-/* =========================
-   btn - DARK
-========================= */
-
-[data-theme="dark"] .btn {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .btn:hover {
-    background: #3b82f6;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .btnImport {
-    background: #03891ee0;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .btnImport:hover {
-    background: #3b82f6;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .btnExport {
-    background: #890303e0;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .btnExport:hover {
-    background: #3b82f6;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .btn-primary {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .btn-primary:hover {
-    background: #3b82f6;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .ResetKEBtn {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .ResetKEBtn:hover {
-    background: #870606;
-    color: #ffffff;
-}
-
-
-[data-theme="dark"] .ResetFSBtn {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .ResetFSBtn:hover {
-    background: #870606;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .ResetFMBtn {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .ResetFMBtn:hover {
-    background: #870606;
-    color: #ffffff;
-}
-
-.ResetFMBtn:hover {
-    background: #870606;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .no-print {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-[data-theme="dark"] .no-print:hover {
-    background: #3b82f6;
-    color: #ffffff;
-}
-
-
-/* ======================
-   KE – Bemerkung Statusfarben
-====================== */
-.ke-bemerkung-frei {
-  background-color: #03891ee0 !important;
-  color: #ffffff !important;
-}
-
-.ke-bemerkung-ungeprueft {
-  background-color: #ced506a7 !important;
-  color: #0b0a0a !important;
-}
-
-[data-theme="dark"] .ke-bemerkung-ungeprueft {
-  background-color: #ced506a7 !important;
-  color: #ffffff !important;
-}
-
-.ke-bemerkung-gesperrt {
-  background-color: #890303e0 !important;
-  color: #ffffff !important;
-}
-
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-}
-
-.btn-primary {
-  top: 5px;
-  width: 150px;
-}
-
-/* =========================
-   PW INPUT - DARK
-========================= */
-[data-theme="dark"] .inputs {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-
-/* =========================
-   Suchbox - DARK
-========================= */
-[data-theme="dark"] .sSearch {
-    background: #2a2a2a;
-    color: #ffffff;
-}
-
-[data-theme="dark"] .filter {
-    background: rgba(30,30,30,0.9);
-    backdrop-filter: blur(6px);
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.12);
-    color:#0691fb;    
-}
-
-/* =========================
-   INVENTUR
-========================= */
-.inventur-header {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.inventory-total {
-  background: #e5e7eb;
-  font-weight: 600;
-}
-
-[data-theme="dark"] .inventory-total {
-  background: #1e293b;
-}
-
-@media print {
-
-  @page {
-    size: A4 portrait;
-    margin: 15mm;
-  }
-
-  body {
-    background: white;
-    color: black;
-    font-size: 11px;
-  }
-
-
-/* Tabelle druckoptimiert*/
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  th, td {
-    border: 1px solid #000;
-    padding: 4px 6px;
-  }
-
-  th {
-    background: #f0f0f0;
-    font-weight: 700;
-  }
-
-  tr {
-    page-break-inside: avoid;
-  }
-
-/* Spaltenbreiten (sehr empfohlen) */
-  .inv-table th:nth-child(1),
-  .inv-table td:nth-child(1) {
-    width: 10%;
-  }
-
-  .inv-table th:nth-child(2),
-  .inv-table td:nth-child(2) {
-    width: 35%;
-  }
-
-  .inv-table th:nth-child(3),
-  .inv-table td:nth-child(3) {
-    width: 15%;
-  }
-
-  .inv-table th:nth-child(4),
-  .inv-table td:nth-child(4),
-  .inv-table th:nth-child(5),
-  .inv-table td:nth-child(5) {
-    width: 15%;
-  }
-
-  .inv-table th:nth-child(6),
-  .inv-table td:nth-child(6) {
-    width: 10%;
-  }
-/*Summenzeilen hervorheben*/
-  .inventory-total {
-    font-weight: 700;
-    background: #ddd;
-  }
-}
-
- tr.inventory-sum {
-  background: transparent;
-  color: inherit;
-  font-weight: normal;
-}
-
- tr.inventory-sum td:last-child {
-  color: var(--textColorSum);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-   text-align: right;
-}
-
-
-[data-theme="dark"] tr.inventory-sum {
-  background: transparent;
-  color: inherit;
-  font-weight: normal;
-}
-
-[data-theme="dark"] tr.inventory-sum td:last-child {
-  color: var(--textColorSum);
-  font-weight: 700;
-}
-
-/* Inventur – bestimmte Spalten zentrieren */
 td:nth-child(1),
-th:nth-child(1),   /* Quelle */
-
-td:nth-child(3),
-th:nth-child(3),   /* E-Nummer */
-
-td:nth-child(4),
-th:nth-child(4),   /* Charge-Nr. */
-
-td:nth-child(5),
-th:nth-child(5),   /* Paletten-Nr. */
-
-td:nth-child(6),
-th:nth-child(6),   /* Bestand */
-
-td:nth-child(7),
-th:nth-child(7) {   /* Summe */
-  text-align: center;
-}
-
-[data-theme="dark"] tr.inventory-sum td:nth-last-child(2) {
-  color: var(--textColorSum);
-
-}
-
-[data-theme="dark"] tr.inventory-sum td:last-child {
-  text-shadow: 0 0 6px rgba(96,165,250,0.35);
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-
-/* ================================
-   KE / FS INHALT ZENTRIEREN 
-=============================== */
-
-#keSection td,
-#fsSection td {
-  text-align: center !important;
-  min-width: 120px;
-}
-
-#keSection table {
-  table-layout: fixed;
-  width: 100%;
-}
-
-/* Material – Ellipsis */
-#keSection td:nth-child(2) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-}
-
-/* + */
-#keSection th:nth-child(1),
-#keSection td:nth-child(1) {
-  width: 5%;
-}
-
-/* Material */
-#keSection th:nth-child(2),
-#keSection td:nth-child(2) {
-  width: 18%;
-  text-align: left !important;
-  white-space: normal;
-}
-
-/* E-Nummer */
-#keSection th:nth-child(3),
-#keSection td:nth-child(3) {
-  width: 10%;
-}
-
-/* Charge-Nr. */
-#keSection th:nth-child(4),
-#keSection td:nth-child(4) {
-  width: 10%;
-}
-
-/* Paletten-Nr. */
-#keSection th:nth-child(5),
-#keSection td:nth-child(5) {
-  width: 10%;
-  text-align: center;
-}
-
-/* Wareneingang */
-#keSection th:nth-child(6),
-#keSection td:nth-child(6) {
-  width: 12%;
-}
-
-/* Regal */
-#keSection th:nth-child(7),
-#keSection td:nth-child(7) {
-  width: 10%;
-}
-
-/* Bestand */
-#keSection th:nth-child(8),
-#keSection td:nth-child(8) {
-  width: 10%;
-  text-align: center;
-}
-
-/* Bemerkung */
-#keSection th:nth-child(9),
-#keSection td:nth-child(9) {
-  width: 10%;
-  text-align: center;
-}
-
-/* - */
-#keSection th:nth-child(10),
-#keSection td:nth-child(10) {
-  width: 5%;
-}
-
-
-
-
-/* Material */
-#fsSection th:nth-child(2),
-#fsSection td:nth-child(2) {
-  text-align: left !important;
-  width: 50px;
-}
-
-/* =====================================================
-   MOBILE / TABLET OPTIMIZATION
-===================================================== */
-@media (max-width: 1024px) {
-  .lager-table {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 768px) {
-  #search {
-    width: 90%;
-  }
-
-  button {
-    width: 100%;
-  }
-}
-/* ======================
-   DRUCKLAYOUT (A4)
-====================== */
-#print-header {
-  display: none;
-}
-
-  @media print {
-
-  * {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-
-}
-
-@media print {
-
-  /* =====================
-     GRUNDLAYOUT
-  ===================== */
-  @page {
-    size: A4;
-    margin: 15mm;
-
-  }
-
-  body {
-    margin-top: 35mm;
-    padding: 0;
-    font-size: 11pt;
-    color: #000;
-  }
-
-  /* =====================
-     SCROLL / TABS
-  ===================== */
-  .table-scroll {
-    max-height: none !important;
-    overflow: visible !important;
-  }
-
-  .tab-section {
-    display: none !important;
-  }
-
-  .tab-section.active {
-    display: block !important;
-  }
-
-  /* =====================
-     TABELLE
-  ===================== */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  thead {
-    display: table-header-group;
-  }
-
-  tr {
-    page-break-inside: avoid;
-  }
-
-  th,
-  td {
-    border: 1px solid #000;
-    padding: 4px 6px;
-    vertical-align: middle;
-  }
-
-  th {
-    background: #eaeaea;
-    font-weight: bold;
-  }
-
-    /* =====================
-     UI & FORM AUSBLENDEN
-  ===================== */
-  button,
-  .btn,
-  .no-print,
-  .edit-icon,
-  .sSearch,
-  .tabs,
-  .inputs,
-  .status,
-  .filter,
-  form,
-  label,
-  input,
-  select,
-  textarea,
-  h1, h2,
-  hr,
-  .hr,
-  .keyInput,
-  .divider,
-  [role="separator"] {
-    display: none !important;
-  }
-
-  /* =====================
-     FARBE (wenn erlaubt)
-  ===================== */
-  .fm-bestand-zero {
-    background-color: #78350f !important;
-    color: #fff !important;
-    border-left: 6px solid #78350f !important;
-  }
-
-  .fm-bestand-ok {
-    background-color: #0d7a05 !important;
-    color: #fff !important;
-    border-left: 6px solid #0d7a05 !important;
-  }
-
-  /* =====================
-     TEXTLICHE KENNZEICHNUNG
-  ===================== */
-  .fm-bestand-zero::after {
-    content: " (leer)";
-    font-weight: bold;
-    color: #000 !important;
-    background: #fff;
-    padding-left: 4px;
-  }
-
-  .fm-bestand-ok::after {
-    content: " (" attr(data-unit) ")";
-    font-weight: bold;
-    color: #000 !important;
-    background: #fff;
-    padding-left: 4px;
-  }
-
-/* ======================
-   DRUCK-HEADER
-====================== */
-#print-header {
-  display: none;
-}
-
-@media print {
-
-  #print-header {
-    display: block;
-    position: static;           
-    margin-bottom: 8mm;
-    padding-bottom: 4mm;
-    border-bottom: 1px solid #000;
-  }
-/* WICHTIG 
-  .print-title {
-    font-size: 14pt;
-    font-weight: bold;
-  }
-*/
-  .print-date {
-    font-size: 10pt;
-    margin-top: 2mm;
-  }
-
-}
-
-
-
-  /* =====================
-     FOOTER / SEITENZAHL
-  ===================== */
-  footer::after {
-    content: "Seite: " counter(page);
-
-  }
-}
-/* =========================
-   SEARCH RESPONSIVE
-========================= */
-
-@media (max-width: 900px) {
-  .search-wrapper {
-    width: 90%;
-  }
-    
-}
-
-/* =========================
-   SEARCH WRAPPER – ZENTRAL
-========================= */
-
-/* Aktiver Treffer (Navigation) */
-.active-hit {
-  outline: 2px solid #ff9800;
-  background: #ffe0b2;
-}
-
-
-.search-wrapper {
-  position: relative;
-  width: 35%;
-  margin: 10px auto;
-}
-
-/* Suchfeld */
-.sSearch {
-  width: 100%;
-  box-sizing: border-box;
-  padding-right: 120px; /* Platz für X + ↑ ↓ */
-}
-
-/* =========================
-   CLEAR (X)
-========================= */
-.search-clear {
-  position: absolute;
-  right: 70px;           /* direkt links von ↑↓ */
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 18px;
-  cursor: pointer;
-  display: none;
-  z-index: 2;
-  line-height: 1;
-}
-
-.search-clear:hover {
-  color: #ffffff;
-  font-weight: 600;        
-  font-size: 1.25em;        
-}
-
-/* =========================
-   TREFFER NAVIGATION ↑ ↓
-========================= */
-.search-nav {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: none;
-  gap: 4px;
-  align-items: center;
-}
-
-.search-nav button {
-  width: 26px;
-  height: 26px;
-  padding: 0;
-  line-height: 1;
-  cursor: pointer;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.search-nav button:hover {
-  background: #02427a;
-  color: #ffffff;
-   font-weight: 600;        /* fett */
-  font-style: italic;       /* kursiv */
-  font-size: 1.05em;        /* leicht größer */    
-}
-
-mark.hit {
-  background: yellow;
-}
-
-mark.hit.active-hit {
-  background: rgb(10, 127, 29);
-  outline: 2px solid #cc7a00;
-  color: #f0f0f0;
-}
-
-/* TIMER ANFANG */
-.edit-timer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 6px 12px;
-  border-radius: 999px;
-
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-
-  background: rgba(0, 0, 0, 0.06);
-  color: #333;
-
-  transition: 
-    background 0.3s ease,
-    color 0.3s ease,
-    opacity 0.3s ease;
-
-  user-select: none;
-}
-
-.edit-timer .label {
-  opacity: 0.7;
-  font-weight: 500;
-}
-
-.edit-timer .time {
-  font-variant-numeric: tabular-nums;
-}
-
-/* Sichtbarkeit */
-.edit-timer.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Warnstufe (< 30s) */
-.edit-timer.warning {
-  background: rgba(192, 57, 43, 0.12);
-  color: #c0392b;
-}
-
-/* EDIT TIMER ENDE*/
-/* LOGOUT TIMER ANFANG*/
-.logout-timer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  padding: 6px 12px;
-  border-radius: 999px;
-
-  font-size: 12px;
-  font-weight: 600;
-
-  background: rgba(192, 57, 43, 0.12);
-  color: #c0392b;
-
-  transition: opacity 0.3s ease;
-  user-select: none;
-}
-
-.logout-timer .label {
-  opacity: 0.75;
-  font-weight: 500;
-}
-
-.logout-timer .time {
-  font-variant-numeric: tabular-nums;
-}
-
-.logout-timer.hidden {
-  opacity: 0;
-  pointer-events: none;
-}
-/* LOGOUT TIMER ENDE*/
-
-
-/* ==================================================
-   COLUMN TOGGLE – DESKTOP (KE / FS / FM) VERSION 1
-=============================================== */
-@media (min-width: 1025px) {
-
-  .column-toggle-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px 20px;
-    align-items: center;
-  }
-
-  .column-toggle-grid label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    padding: 6px 10px;
-    border-radius: 8px;
-
-    background: rgba(0,0,0,0.04);
-    cursor: pointer;
-    user-select: none;
-
-    font-size: 13px;
-    white-space: nowrap;
-  }
-
-  .column-toggle-grid label:hover {
-    background: rgba(0,0,0,0.08);
-  }
-
-  [data-theme="dark"] .column-toggle-grid label {
-    background: rgba(255,255,255,0.06);
-  }
-
-  [data-theme="dark"] .column-toggle-grid label:hover {
-    background: rgba(255,255,255,0.12);
-  }
-
-  .column-toggle-grid input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-  }
-
-  .column-toggle-grid label.locked {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  /* Reset Button rechts */
-  .column-toggle-grid > div {
-    margin-left: auto;
-  }
-}
-
-/* ==============================================================
-   COLUMN TOGGLE – MOBILE / TABLET - 3-Spalten-Layout VERSION 2
-========================================================== */
-@media (max-width: 1024px) {
-
-  .column-toggle-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-
-  .column-toggle-grid label {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 10px 6px;
-    border-radius: 12px;
-
-    background: rgba(0,0,0,0.06);
+td:nth-child(2),
+td:nth-child(3) {
     text-align: center;
-    font-size: 12px;
-    line-height: 1.2;
-  }
+}
 
-  [data-theme="dark"] .column-toggle-grid label {
-    background: rgba(255,255,255,0.08);
-  }
+/* Inputs & Selects in den Spalten ebenfalls zentrieren */
+td:nth-child(2) input,
+td:nth-child(3) select {
+    margin: 0 auto;
+    display: block;
+}
 
-  .column-toggle-grid input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-bottom: 6px;
-  }
+/* =========================
+   Responsive Tabellenbreite
+========================= */
 
-  .column-toggle-grid label.locked {
-    opacity: 0.45;
-  }
-
-  /* Reset Button volle Breite unten */
-  .column-toggle-grid > div {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: stretch;
-  }
-
-  .column-toggle-grid button {
+table {
     width: 100%;
-  }
+    table-layout: fixed;
 }
 
+/* Desktop – Standard */
+th:nth-child(1), td:nth-child(1) { width: 12%; } /* Datum */
+th:nth-child(2), td:nth-child(2) { width: 10%; } /* Zeit */
+th:nth-child(3), td:nth-child(3) { width: 14%; } /* Messzeitpunkt */
+th:nth-child(4), td:nth-child(4) { width: 18%; } /* Systolisch */
+th:nth-child(5), td:nth-child(5) { width: 18%; } /* Diastolisch */
+th:nth-child(6), td:nth-child(6) { width: 12%; } /* Puls */
 
-
-/* ===============================
-   INVENTUR HEADER
-================================ */
-
-#inventarSection .inventur-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-
-/* Container */
-.inventur-header {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 12px;
-}
-
-/* Rechte Einheit */
-.inventur-date {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  background: rgba(255,255,255,0.04);
-  padding: 6px 10px;
-  border-radius: 10px;
-}
-
-/* Label */
-.inventur-date label {
-  font-size: 12px;
-  opacity: 0.75;
-  white-space: nowrap;
-}
-
-/* Date Input */
-.inventur-date input[type="date"] {
-  background: transparent;
-  color: inherit;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 6px;
-  padding: 4px 6px;
-  font-size: 12px;
-}
-
-/* Button elegant */
-.inventur-date button.invDate {
-  padding: 4px 10px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-
-  background: #60a5fa;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-/* optional Hover */
-.inventur-date button.invDate:hover {
-  background: #3b82f6;
-}
-
-/* ===============================
-   SCROLL TO TOP BUTTON
-================================ */
-
-#scrollTopBtn {
-  position: fixed;
-  z-index: 9999;
-
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-
-  border: none;
-  cursor: pointer;
-
-  background: rgba(96,165,250,0.95);
-  color: #fff;
-  font-size: 26px;
-  font-weight: bold;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(12px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-
-/* Sichtbar */
-#scrollTopBtn.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-/* Hover */
-#scrollTopBtn:hover {
-  background: rgba(96,165,250,0.9); /* dein Blau */
-}
-@media (min-width: 1025px) {
-  #scrollTopBtn {
-    width: 44px;
-    height: 44px;
-    right: 18px;
-    bottom: 24px;
-    font-size: 20px;
-  }
-}
+/* =========================
+   Tablet
+========================= */
 @media (max-width: 1024px) {
-  #scrollTopBtn {
-    right: max(16px, env(safe-area-inset-right));
-    bottom: max(96px, env(safe-area-inset-bottom));
+    th:nth-child(1), td:nth-child(1) { width: 14%; }
+    th:nth-child(2), td:nth-child(2) { width: 12%; }
+    th:nth-child(3), td:nth-child(3) { width: 16%; }
+    th:nth-child(4), td:nth-child(4) { width: 20%; }
+    th:nth-child(5), td:nth-child(5) { width: 20%; }
+    th:nth-child(6), td:nth-child(6) { width: 18%; }
+}
 
-    width: 72px;
-    height: 72px;
-    font-size: 28px;
-  }
+/* =========================
+   Mobile
+========================= */
+@media (max-width: 768px) {
+    th:nth-child(1), td:nth-child(1) { width: 18%; } /* Datum */
+    th:nth-child(2), td:nth-child(2) { width: 14%; } /* Zeit */
+    th:nth-child(3), td:nth-child(3) { width: 18%; } /* Messzeitpunkt */
+    th:nth-child(4), td:nth-child(4) { width: 25%; } /* Systolisch */
+    th:nth-child(5), td:nth-child(5) { width: 25%; } /* Diastolisch */
+    th:nth-child(6), td:nth-child(6) { width: 20%; } /* Puls */
 }
 
 @media (max-width: 600px) {
-  #scrollTopBtn {
-    width: 58px;
-    height: 58px;
+    .reset-row {
+        top: 8px;
+        right: 8px;
+    }
 
-    right: 14px;
-    bottom: 90px;   /* NICHT vom Browser / Thumb verdeckt */
-
-    font-size: 24px;
-    border-radius: 50%;
-  }
-}
-
-@media (max-width: 480px) {
-  #scrollTopBtn {
-    right: max(14px, env(safe-area-inset-right));
-    bottom: max(110px, env(safe-area-inset-bottom));
-
-    width: 76px;
-    height: 76px;
-    font-size: 30px;
-  }
-}
-
-/* ===============================
-   STICKY SEARCH WRAPPER
-================================ */
-.sSearch {
-  flex: 1;
-  padding: 6px 10px;
-  border-radius: 8px;
-}
-
-.search-wrapper {
-  position: sticky;
-  top: 6px;
-  z-index: 30;
-
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  padding: 6px 8px;
-  border-radius: 10px;
-
-  background: var(--bg, #fff);
-
-  /* 🔹 NEU */
-  opacity: 0.85;
-  transition: opacity 0.2s ease, background-color 0.2s ease;
-}
-
-/* Hover (Desktop) */
-.search-wrapper:hover {
-  opacity: 1;
-}
-
-/* Fokus – wichtig für Klick & Mobile */
-.search-wrapper:focus-within {
-  opacity: 1;
+    .danger-btn {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
 }
 
 
-
-/* MOBILE FEINTUNING */
-@media (max-width: 768px) {
-
-  .search-wrapper {
-    top: max(6px, env(safe-area-inset-top));
-    padding: 10px 10px;
-    gap: 8px;
-
-    border-radius: 14px;
-
-    opacity: 0.9;                 /* leicht sichtbar beim Scroll */
-    backdrop-filter: blur(2px);   /* optional, modern */
-  }
+table input,
+table select {
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Input selbst: Daumen- & Zoom-tauglich */
-@media (max-width: 768px) {
-
-  .sSearch {
-    font-size: 16px;      /* extrem wichtig: verhindert iOS Zoom */
-    padding: 10px 12px;
-    border-radius: 12px;
-  }
+/* Arztmodus: alle Überschriften neutral */
+.doctor-print h1,
+.doctor-print h2,
+.doctor-print h3,
+.doctor-print h4,
+.doctor-print h5,
+.doctor-print h6 {
+    background: #fff !important;
+    color: black !important;
 }
 
-/* Clear-Button & Navigation besser erreichbar */
-@media (max-width: 768px) {
 
-  .search-clear {
-    font-size: 18px;
-    padding: 6px;
-  }
+/* =========================
+   Arztmodus: Einstellungs-Texte schwarz
+========================= */
 
-  .search-nav button {
-    width: 36px;
+.doctor-print summary,
+.doctor-print summary *,
+.doctor-print .doctor-setting,
+.doctor-print .doctor-setting span,
+.doctor-print .doctor-switch label,
+.doctor-print input:disabled {
+    color: #000 !important;
+    opacity: 1 !important;
+}
+/* =========================
+   Arztmodus – FINAL OVERRIDE
+========================= */
+
+html.doctor-print,
+html.doctor-print body {
+    background: #fff !important;
+    color: #000 !important;
+}
+html.doctor-print h2 {
+    background: #fff !important;
+    color: #000 !important;
+}
+html.doctor-print details {
+    background: #fff !important;
+    border-color: #000 !important;
+}
+
+.doctor-summary {
+        display: block !important;
+        border: none !important;
+        padding: 0 12px 0 0 !important;
+        margin: 0 0 0 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12px;
+}
+
+
+/* =========================
+   DRUCKMODUS (A4 CLEAN)
+========================= */
+@media print {
+
+    /* ===== GLOBAL RESET ===== */
+    html, body {
+        background: #fff !important;
+        color: #000 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    * {
+        color: #000 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    /* ===== TITEL ===== */
+    h2 {
+        background: #fff !important;
+        color: #000 !important;
+        margin: 0 0 10px 0 !important;
+        padding: 0 !important;
+    }
+
+    /* ===== ALLES UI AUSBLENDEN ===== */
+    .controls,
+    .summary,
+    details,
+    .settings-row,
+    .doctor-settings,
+    .doctor-switch,
+    .reset-row,
+    .language-settings,
+    .lang-row,
+    button {
+        display: none !important;
+    }
+
+    /* ===== PATIENTEN-EINGABE AUS ===== */
+    .patient-settings {
+        display: none !important;
+    }
+
+    /* ===== ARZT-KOPF (OHNE RAHMEN!) ===== */
+    .doctor-header {
+        display: block !important;
+        border: none !important;
+        padding: 0 0 10px 0 !important;
+        margin: 0 0 12px 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12px;
+    }
+
+    .doctor-header div {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    /* ===== ARZT-ZUSAMMENFASSUNG (KEIN RAHMEN) ===== */
+    .doctor-summary {
+        display: block !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 0 10px 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12px;
+    }
+
+    /* ===== TABELLE ===== */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        page-break-inside: avoid;
+        font-size: 11px;
+    }
+
+    th, td {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+        padding: 4px 6px !important;
+    }
+
+    th {
+        font-weight: 600;
+    }
+
+    /* ===== INPUTS = TEXT ===== */
+    input,
+    select {
+        background: transparent !important;
+        color: #000 !important;
+        border: none !important;
+        padding: 0 !important;
+        font-size: 11px;
+        appearance: none;
+    }
+
+    /* ===== STATUS-FARBEN ENTFERNEN ===== */
+    .bp-normal,
+    .bp-warning,
+    .bp-danger {
+        background: transparent !important;
+        color: #000 !important;
+    }
+
+    /* ===== A4 SEITE ===== */
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
+    }
+    details,
+    summary,
+    details *,
+    .controls,
+    .doctor-switch {
+        display: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+}
+
+/* =========================
+   Patientendaten – Dark Mode
+========================= */
+
+.patient-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.patient-settings label {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.patient-settings input {
+    margin-top: 4px;
+    font-size: 14px;
+    padding: 6px 8px;
+    border-radius: 6px;
+
+    background: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+}
+
+.patient-settings button {
     height: 36px;
-    font-size: 18px;
-  }
+    padding: 0 16px;
+    border-radius: 999px;
+    font-weight: 500;
+
+    background: #2f2f2f;
+    color: var(--text-main);
+    border: 1px solid var(--border);
 }
 
-/* Fokus- & Klick-Zustand (entscheidend!) */
+.patient-settings button:hover {
+    background: #3a3a3a;
+}
+
+/* =========================
+   Arztmodus – Patientendaten ausblenden
+========================= */
+
+.doctor-print .patient-settings {
+    display: none;
+}
+
+/* =========================
+   Arztkopf – EINZEILIG & sauber
+========================= */
+
+.doctor-header {
+    display: none;
+    align-items: center;
+    gap: 18px;
+
+    margin: 10px 0 16px;
+    padding: 14px 18px;
+
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 10px;
+
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Arztmodus sichtbar */
+.doctor-print .doctor-header {
+    display: flex;
+}
+
+/* Druckmodus sichtbar */
+@media print {
+    .doctor-header {
+        display: flex !important;
+    }
+}
+
+/* Zeitraum */
+#doctorPeriod {
+    font-size: 13px;
+    color: #444;
+}
+
+/* Zusammenfassung */
+#doctorSummary {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+}
+
+/* =========================
+   Mobile Optimierung
+========================= */
+
 @media (max-width: 768px) {
+    .patient-settings {
+        grid-template-columns: 1fr;
+    }
 
-  .search-wrapper:focus-within {
-    opacity: 1;
-    background: var(--bg, #fff);
-  }
-}
-/* minimaler Sticky-Schatten */
-@media (max-width: 768px) {
-  .search-wrapper {
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  }
-}
-
-#inventarSection .search-wrapper {
-  position: fixed;
-  top: 6px;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+    .doctor-header {
+        flex-direction: column;
+        align-items: flex-start;
+        white-space: normal;
+        gap: 6px;
+    }
 }
 
-/* Progressbar */
-.loading-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-}
-
-.loading-card {
-  background: #1f1f1f;
-  padding: 24px 28px;
-  width: 320px;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0,0,0,.4);
-  text-align: center;
-  color: #fff;
-}
-
-.loading-title {
-  font-size: 15px;
-  margin-bottom: 12px;
-  opacity: .9;
-}
-
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  background: #333;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.progress-bar div {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #4caf50, #81c784);
-  transition: width .25s ease;
-}
-
-.progress-percent {
-  margin-top: 8px;
-  font-size: 13px;
-  opacity: .8;
-}
