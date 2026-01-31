@@ -87,7 +87,16 @@
         <input type="checkbox" id="doctorMode">
         <span data-i18n="doctorMode">Arztmodus (nur Lesen)</span>
       </label>
+
+      <section class="printmode">
+        <div>
+          <button class="print" onclick="printTable()">Drucken</button><br>
+          <div class="print-date" id="printDate"></div>
+        </div>
+      </section>
     </div>
+
+    <br><br>
 
     <div class="settings-row doctor-settings">
       <label><span data-i18n="limitN">Normal bis:</span><input type="number" id="limitNormal"></label>
@@ -112,10 +121,10 @@
     </thead>
     <tbody></tbody>
 </table>
-<center><button class="no-print" onclick="printTable()">Drucken</button></center>
+
 <p>
-  <footer>
-    © Dilaver Bölükbaşı 2026
+  <footer class="copyrigt">
+    <div class="no-print">© Dilaver Bölükbaşı 2026</div>
   </footer>
 </p>
 

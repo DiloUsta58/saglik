@@ -8,7 +8,7 @@
    KONSTANTEN & GLOBALS
 ========================= */
 // Perioden-Logik
-const PATIENT_KEY = "bp_patient";   // <<< HIERHIN VERSCHIEBEN
+const PATIENT_KEY = "bp_patient";  
 const DAYS_IN_PERIOD = 7;
 const ACTIVE_PERIOD_KEY = "bp_active_period_start";
 // DOM
@@ -496,3 +496,27 @@ document.getElementById("savePatient").addEventListener("click", () => {
     localStorage.setItem(PATIENT_KEY, JSON.stringify(patient));
     loadPatient();
 });
+
+  /* =========================
+     Print-Funktion
+  ========================= */
+
+function printTable() {
+    // aktuelles Datum/Uhrzeit für Ausdruck
+    const now = new Date();
+    const dateStr =
+        now.toLocaleDateString("de-DE") +
+        " " +
+        now.toLocaleTimeString("de-DE", {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+    const el = document.getElementById("printDate");
+    if (el) {
+        el.innerText = `${dateStr}`;
+    }
+
+    // echten Browser-Druck starten
+    window.print();
+}

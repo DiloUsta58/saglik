@@ -228,6 +228,8 @@ tbody tr:hover td {
     display: none !important;
 }
 
+
+
 /* =========================
    Doctor Summary Box
 ========================= */
@@ -285,16 +287,7 @@ tbody tr:hover td {
 .doctor-print .settings-row.doctor-settings {
     display: none !important;
 }
-/* =========================
-   Reset-Button global fixiert
-========================= */
 
-.reset-row {
-    position: fixed;
-    top: 12px;
-    right: 16px;
-    z-index: 9999;
-}
 
 /* Button-Design */
 .danger-btn {
@@ -312,10 +305,15 @@ tbody tr:hover td {
     background: #b32626;
 }
 
+
 /* Arztmodus: Button ausblenden */
 .doctor-print .reset-row {
     display: none;
 }
+
+.doctor-print  .copyrigt {
+    display: none !important;
+}   
 
 /* =========================
    Sprachwahl mit PNG-Flaggen
@@ -608,6 +606,7 @@ html.doctor-print details {
     summary,
     details *,
     .controls,
+    .no-print,
     .doctor-switch {
         display: none !important;
         border: none !important;
@@ -616,7 +615,11 @@ html.doctor-print details {
         height: 0 !important;
         overflow: hidden !important;
     }
+    .copyrigt {
+        display: none !important;
+    }    
 }
+
 
 /* =========================
    Patientendaten – Dark Mode
@@ -739,3 +742,52 @@ html.doctor-print details {
     }
 }
 
+
+/* =========================
+   Reset-Button global fixiert
+========================= */
+
+
+.reset-row {
+    position: fixed;
+    top: 16px;
+    right: 1%;
+    z-index: 9999;
+}
+
+/* Arztmodus */
+html.doctor-print .printmode {
+    display: block !important;
+
+    position: fixed;      /* WICHTIG */
+    top: 16px;
+    right: 16px;
+    z-index: 10000;
+}
+
+/* Normalmodus */
+.printmode {
+    display: none;
+}
+
+/* Arztmodus blendet Buttons aus (bestehend) */
+.doctor-print .controls,
+.doctor-print .table-header,
+.doctor-print button {
+    display: none !important;
+}
+
+/* ✅ Druck-Button wieder EIN */
+html.doctor-print .printmode button {
+    display: inline-block !important;
+}
+
+/* Beim Drucken Button aus */
+@media print {
+    .print {
+        display: none !important;
+    }
+}
+
+
+ 
